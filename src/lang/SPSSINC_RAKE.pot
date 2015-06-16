@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-01-08 09:40+Mountain Standard Time\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: SPSSINC_RAKE.py:79
+msgid "---"
+msgstr ""
+
+#: SPSSINC_RAKE.py:99
+msgid "FINALWEIGHT cannot specify an existing variable name"
+msgstr ""
+
+#: SPSSINC_RAKE.py:111
+msgid "A control total variable does not exist: %s"
+msgstr ""
+
+#: SPSSINC_RAKE.py:113
+msgid "A nonnumeric variable was specified for a control dimension: %s"
+msgstr ""
+
+#: SPSSINC_RAKE.py:115
+msgid "An invalid set of values and totals was found for a control dimension: %s"
+msgstr ""
+
+#: SPSSINC_RAKE.py:120
+msgid "Information"
+msgstr ""
+
+#: SPSSINC_RAKE.py:154
+msgid "The number of control variables does not match number of sets of control totals"
+msgstr ""
+
+#: SPSSINC_RAKE.py:219
+msgid "Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
+msgstr ""
+
+#: SPSSINC_RAKE.py:287
+msgid "Raked Weight"
+msgstr ""
+
