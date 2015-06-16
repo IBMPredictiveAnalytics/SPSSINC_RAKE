@@ -1,0 +1,129 @@
+#/***********************************************************************
+# * Licensed Materials - Property of IBM 
+# *
+# * IBM SPSS Products: Statistics Common
+# *
+# * (C) Copyright IBM Corp. 1989, 2014
+# *
+# * US Government Users Restricted Rights - Use, duplication or disclosure
+# * restricted by GSA ADP Schedule Contract with IBM Corp. 
+# ************************************************************************/
+
+# NLS_ENCODING=UTF-8
+# IBMUPYTH
+
+
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-05-21 17:51+China Standard Time\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: SPSSINC_RAKE.py:112
+msgid "---"
+msgstr ""
+"---"
+
+#: SPSSINC_RAKE.py:133
+msgid "FINALWEIGHT cannot specify an existing variable name"
+msgstr ""
+"FINALWEIGHT no puede especificar un nombre de variable existente"
+
+#: SPSSINC_RAKE.py:145
+msgid "A control total variable does not exist: %s"
+msgstr ""
+"No existe una variable total de control: %s"
+
+#: SPSSINC_RAKE.py:147
+msgid "A nonnumeric variable was specified for a control dimension: %s"
+msgstr ""
+"Se ha especificado una variable no numérica para una dimensión de control: %s"
+
+#: SPSSINC_RAKE.py:149
+msgid "An invalid set of values and totals was found for a control dimension: %s"
+msgstr ""
+"Se ha encontrado un conjunto no válido de valores y totales para una dimensión de control: %s"
+
+#: SPSSINC_RAKE.py:154
+msgid "Information"
+msgstr ""
+"Información"
+
+#: SPSSINC_RAKE.py:204
+msgid "The number of control variables does not match number of sets of control totals"
+msgstr ""
+"El número de variables de control no coincide con el número de conjuntos de totales de control"
+
+#: SPSSINC_RAKE.py:280
+msgid "Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
+msgstr ""
+"Variable: %s, valor: %s. No se ha proporcionado un valor de control: la ponderación será SYSMIS."
+
+#: SPSSINC_RAKE.py:335
+msgid "Failure in GENLOG procedure.  Processing stopped.\nThe error could be either a failure to compute the result \nor not having a license for the Advanced Statistics option"
+msgstr ""
+"Error en el procedimiento de GENLOG. El proceso se ha detenido.\nEl error podría ser un error al calcular el resultado \no no tiene una licencia para la opción Estadísticos avanzados"
+
+#: SPSSINC_RAKE.py:378
+msgid "Raked Weight"
+msgstr ""
+"Ponderación de Raked"
+
+#: SPSSINC_RAKE.py:439
+msgid "Sample Balance"
+msgstr ""
+"Balance de muestra"
+
+#: SPSSINC_RAKE.py:447
+msgid "Sample Balance Including Final Weight Adjustment"
+msgstr ""
+"Balance de muestra que incluye ajuste de ponderación final"
+
+#: SPSSINC_RAKE.py:448
+msgid "Sample Balance Based on Variables: %s"
+msgstr ""
+"Balance de muestra basado en variables: %s"
+
+#: SPSSINC_RAKE.py:450
+msgid "Balance"
+msgstr ""
+"Balanza"
+
+#: SPSSINC_RAKE.py:453
+msgid "Category Rake Weight"
+msgstr ""
+"Ponderación Rake de categoría"
+
+#: SPSSINC_RAKE.py:460
+msgid "Case Count Weighted by Input Weight"
+msgstr ""
+"Recuento de casos ponderado por ponderación de entrada"
+
+#: SPSSINC_RAKE.py:461
+msgid "Mean Adjusted Raked Weight"
+msgstr ""
+"Ponderación Raked de media ajustada"
+
+#: SPSSINC_RAKE.py:463
+msgid "Unweighted Case Count"
+msgstr ""
+"Recuento de casos sin ponderar"
+
+#: SPSSINC_RAKE.py:469
+msgid "Raked Weights"
+msgstr ""
+"Ponderaciones Raked"
+
+
+
