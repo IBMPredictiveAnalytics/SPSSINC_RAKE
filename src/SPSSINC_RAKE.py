@@ -7,7 +7,7 @@ from __future__ import with_statement
 #restricted by GSA ADP Schedule Contract with IBM Corp.
 
 __author__ = "SPSS, JKP"
-__version__ = "2.5.0"
+__version__ = "2.7.0"
 
 # 05-aug-2010 handle unlicensed module error
 # 26-aug-2011 force delta = 0 for 1-d problem.  Improve genlog failure error message.
@@ -17,6 +17,8 @@ __version__ = "2.5.0"
 # 20-apr-2012 preserve input weight variability and match output marginals
 # 08-apr-2015 add option to show or hide table of weights
 # 10-apr-2015 add option to get control totals from datasets
+# 25-jun-2015 allow expressions for control totals
+# 22-nov-2015 add optional heatmap and histogram
 
 import spss, spssaux, spssdata
 from extension import Template, Syntax, checkrequiredparams, processcmd
@@ -148,6 +150,14 @@ def Run(args):
         Template("CHECKEMPTY", subc="OPTIONS", ktype="bool", var="checkempty"),
         Template("SHOW", subc="OPTIONS",ktype="bool", var="visible"),
         Template("SHOWWEIGHTS", subc="OPTIONS", ktype="bool", var="showweights"),
+        
+        Template("HISTOGRAM", subc="PLOT", ktype="bool", var="histogram"),
+        Template("AUTOHEATMAP", subc="PLOT", ktype="int", var="autoheatmap",
+            vallist=[2, 4]),
+        Template("YVAR", subc="PLOT", ktype="existingvarlist", var="yvar"),
+        Template("XVAR", subc="PLOT", ktype="existingvarlist", var="xvar"),
+        Template("PANELDOWNVAR", subc="PLOT", ktype="existingvarlist", var="paneldownvar"),
+        Template("PANELACROSSVAR", subc="PLOT", ktype="existingvarlist", var="panelacrossvar"),
         Template("HELP", subc="", ktype="bool")])
 
     #enable localization
@@ -195,6 +205,7 @@ def rakeextension(finalweight, dim1=None, dim2=None, dim3=None, dim4=None, dim5=
     ds8=None, catvar8=None, totvar8=None,
     ds9=None, catvar9=None, totvar9=None,
     ds10=None, catvar10=None, totvar10=None,
+    yvar=None, xvar=None, paneldownvar=None, panelacrossvar=None, autoheatmap=None, histogram=True,
     delta=0, iter=20, conv=.0001, visible=False, showweights=True, checkempty=True):
     """dim1 through dim10 are lists with control specifications for up to ten variables.  Each must have the form
     varname value, tot, value, tot, ...
@@ -228,7 +239,8 @@ def rakeextension(finalweight, dim1=None, dim2=None, dim3=None, dim4=None, dim5=
     info = NonProcPivotTable(omssubtype="INFORMATION", procname="SPSSINC RAKE",
         tabletitle=_("Information"))
     rake(info, ctlvars, ctltotals, finalweight, visible, showweights, poptotal, 
-        delta, iter, conv, checkempty)
+        delta, iter, conv, checkempty,
+        yvar, xvar, paneldownvar, panelacrossvar, autoheatmap, histogram)
 
 def buildspec(dims, dss, catvars, totvars, encoding, finalweight):
     """create raking specification and return control variable list and totals list
@@ -262,7 +274,13 @@ def buildspec(dims, dss, catvars, totvars, encoding, finalweight):
             if len(v) == 1 or not len(v) % 2 == 1:
                 raise ValueError(_("An invalid set of values and totals was found for a control dimension: %s") % " ".join(v))
             ctlvars.append(v[0])
-            ctltotals.append(dict([(float(k),float(v)) for k,v in zip(v[1::2], v[2::2])]))
+            #ctltotals.append(dict([(float(k),float(v)) for k,v in zip(v[1::2], v[2::2])]))
+            try:
+                # category totals can be numerical expressions
+                # convert to a value after insuring that all numbers are floats
+                ctltotals.append(dict([(float(k), float(eval(decimalize(v)))) for k,v in zip(v[1::2], v[2::2])]))
+            except:
+                raise ValueError(_("""Invalid category or category total for variable: %s""") % vvname)
     for i, ds in enumerate(dss):
         catvar = catvars[i]
         totvar = totvars[i]
@@ -274,7 +292,8 @@ def buildspec(dims, dss, catvars, totvars, encoding, finalweight):
             spss.Submit("DATASET ACTIVATE %s" % ds)
             dta = spssdata.Spssdata([catvar, totvar], names=False).fetchall()
             ctlvars.append(catvar)
-            ctltotals.append(dict([(float(k), float(v)) for k,v in dta]))
+            # A dataset value might be simply numeric or a string expression
+            ctltotals.append(dict([(float(k), float(eval(decimalize((v))))) for k,v in dta]))
         except: # error conditions include nonexistant dataset and variables and type problems
             spss.Submit("DATASET ACTIVATE %s" % activedsname)
             raise
@@ -292,10 +311,10 @@ def buildspec(dims, dss, catvars, totvars, encoding, finalweight):
 
 
 def rake(info, variables, marginals,finalweight, visible=False, showweights=True, 
-         poptotal=None, delta=0, iter=20, conv=.0001,checkempty=True):
+        poptotal=None, delta=0, iter=20, conv=.0001,checkempty=True,
+        yvar=None, xvar=None, paneldownvar=None, panelacrossvar=None, autoheatmap=None, histogram=True):
     """Calculate a weight variable such that for each controlled dimension, the (weighted) count in each category matches a specified total or fraction.
-
-    variables is a list of the variables for which control totals or proportions are provided.  It can be a sequence or
+e    variables is a list of the variables for which control totals or proportions are provided.  It can be a sequence or
     a white-space separated string
     marginals is a list of dictionaries where the key is the value of a variable and the value is the target control total or fraction.
     fractional marginals should normally add to 1 and counts should total the same in each dimension, but this is not enforced.
@@ -595,10 +614,32 @@ def rake(info, variables, marginals,finalweight, visible=False, showweights=True
             collabels=collabels, cells=cells)
     spss.EndProcedure()
     if not failed:
+        if histogram:
+            dohistogram(finalweight)
+        doheatmap(variables, yvar, xvar, paneldownvar, panelacrossvar, finalweight, autoheatmap)
         spss.Submit("WEIGHT BY " + finalweight)
 
 def rname():
-    return str(random.random())
+    return str(random.uniform(0.1, 1))
+
+def fixer(mobj):
+    """ensure that the number string has a decimal
+    
+    mobj is an re match object"""
+    
+    item = mobj.group(0)
+    if "." in item:
+        return item
+    else:
+        return item + "."
+    
+def decimalize(xpr):
+    "Avoid integer arithmetic"
+    
+    if not isinstance(xpr, basestring):
+        return str(xpr)
+    return re.sub(r"\.*\d+\.*\d*", fixer, xpr)
+
 
 def _buildvarlist(arg):
     """return a list of (presumed) variable names.
@@ -628,6 +669,103 @@ def _dictlisttotupledsets(dlist):
         res.append(set([(k,) for k in d]))
     return res
 
+# specifications for heatmap syntax
+# be careful to avoid generating any blank lines within the command
+
+hmtemplate = """GGRAPH
+  /GRAPHDATASET NAME="graphdataset"
+    VARIABLES=%(yvar)s[LEVEL=nominal] %(xvar)s[LEVEL=ordinal]  
+    %(finalweightvar)s[LEVEL=scale] %(panelingdownvars)s %(panelingacrossvars)s
+    MISSING=LISTWISE REPORTMISSING=NO
+  /GRAPHSPEC SOURCE=VIZTEMPLATE(NAME="Heat Map"[LOCATION=LOCAL]
+    MAPPING( %(panelingdowntem)s "color"="%(finalweightvar)s"[DATASET="graphdataset"] 
+    "columns"="%(yvar)s"[DATASET="graphdataset"] %(panelingacrosstem)s 
+    "rows"="%(xvar)s"[DATASET="graphdataset"] "Title"="%(title)s"))
+    VIZSTYLESHEET="Traditional"[LOCATION=LOCAL]
+    LABEL="%(label)s"
+    DEFAULTTEMPLATE=NO."""
+
+def doheatmap(variables, yvar, xvar, paneldownvar, panelacrossvar, finalweightvar, autoheatmap):
+    """produce a heatmap of the weights with 2 to 4 variables if requested
+    
+    variables is the set of variables with control totals
+    yvar and xvar are the main variables for the heatmap (as lists)
+    paneldownvar and panelacrossvar are variables for paneling down and across
+    finalweightvar is the output weight variable
+    autoheatmap specifies that the first two to four control variables
+    define the heatmap dimensions"""
+    
+    # autoheatmap is used to get around dialog box limitations and overrides other
+    # related variable specifications without a warning
+    
+    if len(variables) == 1:
+        return    # No heatmap available
+    if autoheatmap:
+        yvar = [variables[0]]
+        xvar = [variables[1]]
+        hmsize = min(autoheatmap, len(variables), 4)
+        if hmsize >=3:
+            paneldownvar = [variables[2]]
+        else:
+            paneldownvar = None
+        if hmsize >=4:
+            panelacrossvar = [variables[3]]
+        else:
+            panelacrossvar = None
+    
+    plotvars = (yvar, xvar, paneldownvar, panelacrossvar)
+    
+    if not any(plotvars):
+        return    # no plot requested
+    if not all([yvar, xvar]):
+        print _("No heatmap produced: both y and x variables must be specified")
+        return
+    if set(v[0] for v in plotvars if v is not None) - set(variables):
+        print _("No heatmap produced: only raking variables can be specified")
+        return
+    if not paneldownvar:
+        panelingdownvars = ""
+        panelingdowntem = ""
+    else:
+        panelingdownvar = paneldownvar[0]
+        panelingdownvars = """%(panelingdownvar)s[LEVEL=nomimal]""" % locals()
+        panelingdowntem = """ "Panel down"="%(panelingdownvar)s"[DATASET="graphdataset"]""" % locals()
+    if not panelacrossvar:
+        panelingacrossvars = ""
+        panelingacrosstem = ""
+    else:
+        panelingacrossvar = panelacrossvar[0]
+        panelingacrossvars = """%(panelingacrossvar)s[LEVEL=nomimal]""" % locals()
+        panelingacrosstem = """ "Panel across"="%(panelingacrossvar)s"[DATASET="graphdataset"]""" % locals()
+    title = _("Unweighted Heatmap of Weights by Raking Variables")
+    label = _("Weight Heatmap")
+    yvar = yvar[0]
+    xvar = xvar[0]
+    cmd = hmtemplate % locals()
+    spss.Submit(cmd)
+    
+    
+# histogram template
+# parameters are finalweight and title
+histtem="""GGRAPH
+    /GRAPHDATASET NAME="graphdataset"
+        VARIABLES=%(finalweightvar)s[LEVEL=scale] 
+        MISSING=LISTWISE REPORTMISSING=NO
+    /GRAPHSPEC SOURCE=VIZTEMPLATE(NAME="Histogram"[LOCATION=LOCAL]
+                                  MAPPING( "x"="%(finalweightvar)s"[DATASET="graphdataset"] "Summary"="count" "Title"='%(title)s'))
+        VIZSTYLESHEET="Traditional"[LOCATION=LOCAL]
+        LABEL='HISTOGRAM of Weights'
+        DEFAULTTEMPLATE=NO."""
+
+def dohistogram(finalweightvar):
+    """Display unweighted histogram of weights
+    
+    finalweightvar is the generated weight variable"""
+    
+    title = _("Raked Weights Histogram before Applying New Weights")
+    cmd = histtem % locals()
+    spss.Submit(cmd)
+    
 class NonProcPivotTable(object):
     """Accumulate an object that can be turned into a basic pivot table once a procedure state can be established"""
     

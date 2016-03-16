@@ -2,8 +2,8 @@ Name: SPSSINC_RAKE
 Dialog-Specs: SPSSINC_RAKE.spd
 Command-Specs: SPSSINC_RAKE.xml
 Code-Files: SPSSINC_RAKE.py
-Misc-Files: Raking with IBM SPSS Statistics.pdf,extsyntax.css,IBMdialo
- gicon.png,markdown.html
+Misc-Files: schoolsurvey.sav,extsyntax.css,markdown.html,IBMdialogicon
+ .png,Raking with IBM SPSS Statistics.pdf
 Summary: Calculate weights to control totals in up to ten dimensions b
  y rim weighting, i.e. raking
 Description: This procedure calculates a weight so that the case count
@@ -11,7 +11,7 @@ Description: This procedure calculates a weight so that the case count
  procedure requires the Advanced Statistics option.  Version 2.4 impro
  ves the weight calculations when there is an input weight.
 Author: JKP, IBM SPSS
-Version: 2.6.0
+Version: 2.9.0
 Product-Version: 18
 Date: 1/2/2014
 Categories: utilities

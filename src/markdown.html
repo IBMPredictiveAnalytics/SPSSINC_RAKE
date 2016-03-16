@@ -29,6 +29,13 @@ TOTVAR=<em>marginal totals variable</em><sup>&#42;</sup><br/>
 SHOW=YES or NO<sup>&#42;&#42;</sup><br/>
 SHOWWEIGHTS=YES<sup>&#42;&#42;</sup> or NO</p>
 
+<p>PLOT HISTOGRAM=YES<sup>&#42;&#42;</sup> or NO<br/>
+YVAR=<em>varname</em> XVAR=<em>varname</em> PANELDOWNVAR=<em>varname</em>
+PANELACROSS=<em>varname</em><br/>
+or
+AUTOHEATMAP = <em>number</em>
+
+
 <p>/HELP</p>
 
 <p><sup>&#42;</sup> Required<br/>
@@ -41,6 +48,7 @@ SHOWWEIGHTS=YES<sup>&#42;&#42;</sup> or NO</p>
 DIM1=jobcat 1 500 2 300 3 200
 DIM2=minority 1 800 2 200 
 FINALWEIGHT=weight.
+/PLOT YVAR=jobcat XVAR=minority.
 </code></pre>
 <pre class="example"><code>SPSSINC RAKE 
 FINALWEIGHT=WEIGHT
@@ -79,6 +87,8 @@ the name of the totals variable.  Each case in the dataset
 specifies the category value and the corresponding control total or fraction.
 </li>
 
+  
+
 <p><strong>DS</strong> specifies the name of a dataset containing
 the marginal totals for a variable.</p>
 <p><strong>CATVAR</strong> specifies the name of the categorical
@@ -87,6 +97,13 @@ variable must exist in both this control dataset and the main dataset.</p>
 <p><strong>TOTVAR</strong> specifies the name of the variable containing
 the marginal totals or fractions.</li>
 </ul>
+  <p>The control total can also be a numerical expression.  If
+  an expression is used, enclose the expression in quotes.  For
+  example, 
+  <p><pre>
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"  </pre>
+  <p>If the values are specified using a dataset, the control total variable
+  can be a string containing the expression.</p>
 </p>
 <p>Both DIM and DS specifications can be used in the same command.
 For example, DS1
@@ -131,7 +148,28 @@ the calculated weight is not shown in the output table as it is never used.</p>
 
 <p><strong>SHOWWEIGHTS</strong> determines whether a table of the weight
 values is displayed.  If there are many distinct weights, you may want
-to suppress this table.</p>
+to suppress this table.</p> specifies whether or not to display an
+unweighted histogram of the case weights</p>
+
+<h2>PLOT</h2>
+
+<p><strong>YVAR</strong> and <strong>XVAR</strong> specify the first two
+dimensions of an optional unweighted heatmap of the output weights.  <strong>PANELDOWNVAR</strong> and
+<strong>PANELACROSSVAR</strong> can specify panelling for additional
+dimensions.  All the variables must occur as control variables in the raking
+specification.  The heatmap is not available if there is only one control dimension.</p>
+
+<p><strong>AUTOHEATMAP</strong> is mutually exclusive with the specifications in the
+previous paragraph.  The heatmap is generated with the number of dimensions specified,
+and the dimensions are defined in the order in which the control variables are listed.
+The maximum value for this keyword is four and the minimum is two.</p>
+
+<p>If there are more control variables than are shown in the heatmap, the heatmap
+statistics are the weights in each cell defined in the map averaged over the relevant cases.</p>
+
+<p><strong>HISTOGRAM</strong> indicates whether or not to display a histogram
+of the case weights accumulated over all the cases.</p>
+
 <p>&copy; Copyright IBM Corp. 1989, 2015</p>
 
 </body>
