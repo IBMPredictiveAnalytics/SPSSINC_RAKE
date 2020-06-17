@@ -1,8 +1,8 @@
-from __future__ import with_statement
+
 
 #Licensed Materials - Property of IBM
 #IBM SPSS Products: Statistics General
-#(c) Copyright IBM Corp. 2009, 2015
+#(c) Copyright IBM Corp. 2009, 2020
 #US Government Users Restricted Rights - Use, duplication or disclosure 
 #restricted by GSA ADP Schedule Contract with IBM Corp.
 
@@ -87,7 +87,7 @@ the rake.py module, and the SPSS Statistics Advanced Statistics option.
 def Run(args):
     """Execute the SPSSINC RAKE command"""
 
-    args = args[args.keys()[0]]
+    args = args[list(args.keys())[0]]
     ###print args   #debug
 
     oobj = Syntax([
@@ -168,7 +168,7 @@ def Run(args):
         def _(msg):
             return msg
         # A HELP subcommand overrides all else
-    if args.has_key("HELP"):
+    if "HELP" in args:
         #print helptext
         helper()
     else:
@@ -188,7 +188,7 @@ def helper():
     # webbrowser.open seems not to work well
     browser = webbrowser.get()
     if not browser.open_new(helpspec):
-        print("Help file not found:" + helpspec)
+        print(("Help file not found:" + helpspec))
 try:    #override
     from extension import helper
 except:
@@ -263,8 +263,8 @@ def buildspec(dims, dss, catvars, totvars, encoding, finalweight):
     for dim in dims:    
         if dim:
             v = dim
-            if not isinstance(v[0], unicode):
-                vvname = unicode(v[0], encoding)
+            if not isinstance(v[0], str):
+                vvname = str(v[0], encoding)
             else:
                 vvname = v[0]
             if not v[0] in vardict:
@@ -417,8 +417,8 @@ e    variables is a list of the variables for which control totals or proportion
                     spec = (variables[i], case[i])
                     if not spec in novalues:
                         uspec = spec[0]
-                        if not isinstance(uspec, unicode):
-                            uspec = unicode(uspec, locale.getlocale()[1])
+                        if not isinstance(uspec, str):
+                            uspec = str(uspec, locale.getlocale()[1])
                         info.addrow(_("Variable: %s, value: %s. No control value supplied: weight will be SYSMIS.") % (uspec,  spec[1]))
                     novalues.append(spec)
                     break
@@ -636,7 +636,7 @@ def fixer(mobj):
 def decimalize(xpr):
     "Avoid integer arithmetic"
     
-    if not isinstance(xpr, basestring):
+    if not isinstance(xpr, str):
         return str(xpr)
     return re.sub(r"\.*\d+\.*\d*", fixer, xpr)
 
@@ -718,10 +718,10 @@ def doheatmap(variables, yvar, xvar, paneldownvar, panelacrossvar, finalweightva
     if not any(plotvars):
         return    # no plot requested
     if not all([yvar, xvar]):
-        print _("No heatmap produced: both y and x variables must be specified")
+        print(_("No heatmap produced: both y and x variables must be specified"))
         return
     if set(v[0] for v in plotvars if v is not None) - set(variables):
-        print _("No heatmap produced: only raking variables can be specified")
+        print(_("No heatmap produced: only raking variables can be specified"))
         return
     if not paneldownvar:
         panelingdownvars = ""
@@ -828,5 +828,5 @@ class NonProcPivotTable(object):
 def attributesFromDict(d):
     """build self attributes from a dictionary d."""
     self = d.pop('self')
-    for name, value in d.iteritems():
+    for name, value in d.items():
         setattr(self, name, value)
