@@ -5,9 +5,7 @@
 ---
 Requirements
 ----
-- IBM SPSS Statistics 18 or later and the IBM SPSS Statistics Integration Plug-in for Python.
-
-Note: For users with IBM SPSS Statistics version 22 or higher, the SPSSINC RAKE extension is installed as part of IBM SPSS Statistics-Essentials for Python.
+- IBM SPSS Statistics 18 or later including the Advanced Statistics option and the IBM SPSS Statistics Integration Plug-in for Python.
 
 ---
 Installation intructions
