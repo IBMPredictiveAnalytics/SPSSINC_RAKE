@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>대조군 총계에 대한 레이크 가중값</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>대조군 총계에 대한 레이크 가중값</h1>이 프로시저는 1 - 5개 변수의 범주에 대한 대조군 총계를
+  매치시키는 케이스 가중값을 계산합니다. 데이터 세트에 이미 가중값이 지정되어 있으면,
+  새 가중 변수는 기존 가중값을 포함합니다.  <p><span class="runinhead">작성할 가중 변수.</span>
+  작성할 가중 변수를 지정합니다.</p>
+
+  <p class="bullet">•&nbsp;가중 변수는 아직 사용 중이지 않은 것이어야 합니다.</p>
+
+  <p><span class="runinhead">대조군 총계 변수.</span> 하나 이상의
+  대조변수를 선택합니다.</p>
+
+  <p class="bullet">•&nbsp;숫자로 된 범주 변수만 사용할 수 있습니다. Autorecode를 사용하여 문자변수의 숫자 버전을 작성할 수 있습니다.</p>
+
+  <p class="bullet">•&nbsp;이 대화 상자를 사용하여 최대 5개의 대조변수를
+지정할 수 있지만(명령문에 더 많이 지정할 수 있음), 더 많은 변수를 사용할수록
+대조군 총계를 매치시키는 것이 좀 더 어려워지고, 우도 극단값 가중값이 더 많이 발생합니다.</p>
+
+  <p><span class="runinhead">범주 및 대조군 총계 또는 분수.</span> 사용자가 지정하는
+  대조변수 각각에 대해 공백으로 구분되는 범주 값 및 총계 또는 분수 목록을 입력하십시오. 예를 들면
+다음과 같습니다.<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  범주 1은 표본의 1/2로, 범주 2는 30%,
+  범주 3은 20%로 가중값이 지정되어야 합니다.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  분수 보다 빈도로서 동일하게 표시된 것입니다.</p>
+  <p>대조군 총계는 숫자 표현식일 수도 있습니다. 표현식을 사용할 경우
+표현식을 따옴표로 묶으십시오. 예를 들면 다음과 같습니다.  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>이는 범주를 중첩하여 차원을 접어야 하는 경우에 유용합니다.</p>
+  <p>데이터 세트를 사용하여 값을 지정한 경우 대조군 총계 변수는 표현식이 포함된
+문자열일 수 있습니다.</p>
+   <p class="bullet">•&nbsp;명령문을 사용할 경우 데이터 세트에서 가중값을
+가져올 수 있습니다.</p>
+
+  <p class="bullet">•&nbsp;소수점으로서 항상 점을 사용하십시오.</p>
+
+  <p>프로시저는 각 대조변수 범주에 대한 주변 합계가 가능한 근접하게 지정된 총계와
+  매치하도록 가중값을 생성합니다.</p>
+
+  <p><span class="runinhead">모집단 총계.</span> 선택적으로 가중값이 지정된
+  케이스를 합산할 모집단 총계를 지정할 수 있습니다.</p>
+
+  <p class="bullet">•&nbsp;케이스는 아무 것도 없으면 작성할 수 없습니다. 데이터 세트에 없는 제어 값을 지정하면, 케이스의 가중값 숫자가 요청된 것보다 낮아집니다.</p>
+
+  <h2>옵션</h2>
+
+  <p>옵션 대화 상자는 이 프로시저에서 사용하는 Genlog
+  추정 프로세스의 기준을 지정하며, 생성된 보조 데이터 세트와 Genlog 결과의
+  표시 여부를 지정합니다.</p>
+
+  <p><span class="runinhead">추정 기준.</span> Genlog를 사용하여
+  반복적으로 추정합니다. Newton-Raphson 메소드는 최대 유사 모수 추정값을
+  구할 때 사용됩니다. 최대반복수, 수렴 기준 및 델타(초기 근사값으로 모든
+  셀에 추가되는 상수)에 새 값을 입력할 수 있습니다.</p>
+
+  <p class="bullet">•&nbsp; 계산된 가중값이 지정된 비율에 근사한 결과를
+  생성하지 못하는 경우, DELTA=0으로 설정하십시오.</p>
+
+  <p><span class="runinhead">Genlog 결과 및 보조 데이터 세트 표시.
+</span> 가중값 계산에 사용되는 Genlog 결과 및 보조 데이터 세트를 표시하려면
+  이 상자를 선택하십시오.</p>
+  
+    <h2>도표</h2>
+	<p><span class="runinhead">가중값의 히스토그램 표시.</span> 
+	전체 경우에 집계되고 계산된 가중값의 가중되지 않은 히스토그램을 표시하려면
+이 상자를 선택하십시오. 	이는 극단 가중값 검사 시에 유용할 수 있습니다.</p>
+	
+	<p><span class="runinhead">히트 맵.</span> 히트 맵은 최대 4개의 차원에 대해
+표시될 수 있습니다. 차원에 지정된 변수는 기본 대화 상자에 나열된 순서로 처리되고
+Y 및 X 차원에 지정된 후 지정된 차원의 수에 따라 열 및 행 패널링에
+지정됩니다.
+	차원의 수는 적어도 대조군 총계 변수의 수입니다.
+	대조변수가 하나뿐인 경우 도표를 사용할 수 없습니다.</p>
+	<p>히트 맵의 어두운 영역은 큰 가중값의 위치를 나타내므로 이 도표는
+가중값이 케이스를 최상으로 증폭시키는 위치를 정확히 찾아낼 수 있습니다.</p>
+	
+	<p><span class="bullet">•&nbsp;히트 맵에 표시된 추가 대조변수가 있는 경우, 히트 맵 통계는
+관계에 대해 평균화된 맵에서 정의된 각 셀의 가중값입니다.</span></p>
+
+	<p><span class="bullet">•&nbsp;명령문에는 도표 차원에 대한 추가 제어가 있습니다.</span></p>
+	
+  <h2>추가 기능</h2>명령문에는 메모리 및 인내심이 충분하면 최대 10개 차원까지
+  있을 수 있습니다. 시간과 메모리 요구사항 모두는 차원 수로 빠르게 상승합니다. </p>
+  <p>명령문에서는 대조군 총계를 데이터 세트에서 가져올 수 있습니다.</p>
+  <p>명령문에서는 가중값 표를 숨길 수 있는데, 고유 가중값이 많이 있는 경우에
+권장됩니다.</p>
+  <p>구문에서는 히트 맵 차원 변수를 명시적으로 선택하고 지정되는 축을
+제어할 수 있습니다.</p>
+  
+  <p>다음 명령문을 실행하십시오.<br>
+  SPSSINC RAKE /HELP.<br>
+  또는 명령 인스턴스의 F1을 눌러(tatistics V23 이상) 전체 구문 설명을 표시하십시오.</p>
+
+  <h2>요구 사항</h2>이 명령문에는 Python Essentials 및 Advanced Statistics 옵션이 필요합니다. <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

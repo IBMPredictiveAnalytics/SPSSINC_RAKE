@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+
+"text/html; charset=utf-8">
+
+  <title>制御合計への傾斜重み付け</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>制御合計への傾斜重み付け</h1>このプロシージャは、1 個から 5 個の変数のカテゴリの制御合計と一致するように、ケースの重み付けを計算します。データセットが既に重み付けされている場合、新規の重み付け変数は、既存の重み付けを組み込みます。
+
+  <p><span class="runinhead">作成する重み付け変数:</span>
+  作成する重み付け変数を指定します。</p>
+
+  <p class="bullet">&nbsp;既に使用されている重み付け変数名を指定することはできません。</p>
+
+  <p><span class="runinhead">制御合計変数:</span> 少なくとも 1 つの制御変数を選択します。</p>
+
+  <p class="bullet">&nbsp;数値のカテゴリ変数のみを使用できます。自動再コード化を使用して、文字列変数の数値バージョンを作成できます。</p>
+
+  <p class="bullet">&nbsp;ダイアログを使用して最大で 5 個の制御変数を指定できます (シンタックスを使用すればさらに多く指定できます) が、使用する変数が多くなるほど、制御合計を一致させるのは難しくなり、極端な重み付けが発生する可能性は高くなります。</p>
+
+  <p><span class="runinhead">カテゴリおよび制御合計または制御小数:</span> 指定する制御変数ごとに、カテゴリ値および合計または小数のリストを空白で区切って入力します。たとえば、<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+カテゴリ 1 はサンプルの半分に、カテゴリ 2 は 30% に、カテゴリ 3 は 20% に重み付けされます。<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+これは、同等の内容を小数ではなく度数として表した指定です。</p>
+  <p>制御合計は、数式にすることもできます。式を使用する場合は、式を引用符で囲みます。たとえば、<p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>これは、複数のカテゴリが入れ子になっていて、ディメンションを省略する必要がある場合に役立つことがあります。</p>
+  <p>データセットを使用して値を指定する場合、制御合計変数は、式を含む文字列にすることができます。</p>
+   <p class="bullet">•&nbsp;シンタックスを使用すると、データセットから重み付けを継承できます。</p>
+
+  <p class="bullet">&nbsp;小数点として常にピリオドを使用します。</p>
+
+  <p>このプロシージャは、指定された合計と各制御変数カテゴリの周辺合計とができる限り厳密に一致するように、重み付けを生成します。</p>
+
+  <p><span class="runinhead">母集団合計:</span> オプションとして、重み付けされたケースの総和である母集団合計を指定できます。</p>
+
+  <p class="bullet">&nbsp;根拠となるデータがない場合は、ケースを処理できません。データセット内に出現しない制御値を指定した場合、ケースの重み付けされた数は、要求された数よりも少なくなります。</p>
+
+  <h2>オプション</h2>
+
+  <p>「オプション」ダイアログは、このプロシージャによって使用される Genlog 推定プロセスの基準、および生成される Genlog 出力と補助データセットを非表示にするか表示するかを指定します。</p>
+
+  <p><span class="runinhead">推定基準:</span> 推定は、Genlog によって反復的に実行されます。最尤パラメータ推定値を取得するために Newton-Raphson 法が使用されます。反復の最大数、収束基準、およびデルタ (初期近似のためにすべてのセルに加算される定数) の新値を入力できます。</p>
+
+  <p class="bullet">•&nbsp;計算された重み付けによって、指定された比率に近い結果が得られない場合は、DELTA=0 に設定して試行します。</p>
+
+  <p><span class="runinhead">Genlog 出力と補助データセットを表示:</span> 重み付けの計算に使用された Genlog 出力と補助データセットを表示するには、このボックスにチェック マークを付けます。</p>
+  
+    <h2>作図</h2>
+	<p><span class="runinhead">重み付けのヒストグラムの表示:</span> すべてのケースにわたって累積された計算済みの重み付けの、重み付けされていないヒストグラムを表示するには、このボックスにチェック マークを付けます。 これは、極端な重み付けの値を検査するために役立ちます。</p>
+	
+	<p><span class="runinhead">ヒート マップ:</span> ヒート マップは、最大で 4 つの次元に対して表示できます。 次元に割り当てられる変数は、メイン ダイアログ ボックスにリストされている順序で取得されます。次に、これらの変数は、指定された次元数に従って、y および x 次元、さらには列および行のパネル化に割り当てられます。 次元数の最大値は、制御合計変数の数です。 制御変数が 1 つしかない場合、作図は使用できません。</p>
+	<p>ヒート マップの濃い色の領域は、大きい重み付けがある範囲を示しています。そのため、この作図により、重み付けによるケースの増幅が最も大きい範囲を特定できます。</p>
+	
+	<p><span class="bullet">•&nbsp;ヒート マップに表示されているよりも多くの制御変数がある場合、ヒート マップ統計は、マップ内で定義された各セル内の複数の重み付けを、関連する範囲にわたって平均した値になります。</span></p>
+
+	<p><span class="bullet">•&nbsp;シンタックスでは、次元のプロットをより詳細に制御できます。</span></p>
+	
+  <h2>その他の機能</h2>十分なメモリと時間的余裕がある場合、シンタックスには、最大で 10 個のディメンションを含めることができます。ディメンションの数が多くなるほど、所要時間とメモリ所要量は両方とも急速に増加します。</p>
+  <p>シンタックスでは、制御合計をデータセットから取得できます。</p>
+  <p>シンタックスでは、重み付けのテーブルを抑制できます。それぞれ異なる重み付けが多数ある場合には、この方法をお勧めします。</p>
+  <p>シンタックスでは、ヒート マップの次元変数を明示的に選択し、変数の割り当て先の軸を制御することができます。</p>
+  
+  <p>次のコマンドを実行します。<br>
+  SPSSINC RAKE /HELP.<br>
+または、(Statistics V23 以降では) コマンド インスタンスで F1 キーを押すと、シンタックス全体の説明が表示されます。</p>
+
+  <h2>要件</h2>このコマンドを使用するには、Python Essentials および Advanced Statistics オプションが必要です。<hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

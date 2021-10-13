@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>使权重倾向于控制总计
+</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>使权重倾向于控制总计
+</h1>此过程将计算个案权重，以便与
+1 到 5 个变量的类别的控制总计进行匹配。如果已对数据集进行加权，那么新权重变量将吸收现有权重。
+<p><span class="runinhead">要创建的权重变量</span>。指定要创建的权重变量。</p>
+
+  <p class="bullet">•&nbsp;此权重变量名不能是已在使用中的权重变量名。</p>
+
+  <p><span class="runinhead">控制总计变量</span>。请至少选择一个控制变量。</p>
+
+  <p class="bullet">•&nbsp;只能使用数字类别变量。您可以使用“自动重新编码”来创建字符串变量的数字版本。</p>
+
+  <p class="bullet">•&nbsp;可以使用对话框指定多达五个控制变量（更多变量可以在语法中指定），但使用的变量越多，就越难与控制总计进行匹配，并且出现极端权重的可能性也越大。</p>
+
+  <p><span class="runinhead">类别以及控制总计或尾数</span>。对于指定的每个控制变量，请输入类别值以及总计或尾数的列表，并以空格进行分隔。例如，<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  应该对类别 1 进行加权以使样本减半，对类别 2 进行加权以使样本减至 30%，对类别 3 进行加权以使样本减至 20%。<br>
+  <span class="code">1 500 2 300 3 200</span><br> 相当于表示为计数而非尾数。</p>
+  <p>控件总计还可以是数值表达式。如果使用表达式，请将该表达式括在引号中。例如，<p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>您具有嵌套类别并且需要拼并维度时，这非常有用</p>
+  <p>如果使用数据集指定了值，那么控件总计变量可以是包含表达式的字符串。</p>
+   <p class="bullet">•&nbsp;通过使用语法，您可以从数据集中获取权重。</p>
+
+  <p class="bullet">•&nbsp;始终使用句点作为小数点。</p>
+
+  <p>此过程将生成权重，以使每个控制变量类别的边际总计尽可能与指定的总计匹配。</p>
+
+  <p><span class="runinhead">群体总计</span>。您可以选择性地指定各个加权个案的群体总计。</p>
+
+  <p class="bullet">•&nbsp;无法凭空生成个案：如果您指定了数据集中不存在的控制值，那么加权个案数将低于请求的数目。</p>
+
+  <h2>选项</h2>
+
+  <p>“选项”对话框指定此过程所使用的 Genlog 估算过程的条件，并指定是隐藏还是显示所生成的
+Genlog 输出和辅助数据集。</p>
+
+  <p><span class="runinhead">估算条件</span>。估算由 Genlog 以迭代方式执行。Newton-Raphson 法用于获取最大似然参数估算值。您可以为最大迭代次数、收敛准则和 Delta（为了获得初始近似值而对所有单元格添加的常量）输入新值。</p>
+
+  <p class="bullet">•&nbsp;如果计算而得的权重未生成接近于指定比例的结果，请尝试设置 DELTA=0。</p>
+
+  <p><span class="runinhead">显示 Genlog 输出和辅助数据集</span>。选中此框可以查看计算权重时使用的 Genlog 输出和辅助数据集。</p>
+  
+    <h2>图</h2>
+	<p><span class="runinhead">显示权重直方图。</span>
+	单击此框以显示在所有个案上计算的累计权重的非加权直方图。这对于检查非常大的权重值可能非常有帮助。</p>
+	
+	<p><span class="runinhead">热图。</span>最多可针对四个维度显示热图。分配给维度的变量采用在主对话框中列出的顺序，并根据指定的维度的数量分配给 y 和 x 维度，然后是列和行面板。维度的数量是总控制变量的最大数量。如果只有一个控制变量，那么图不可用。</p>
+	<p>热图中的深色区域指示较大权重的区域，因此该图可指示在权重放大个案最大的位置。</p>
+	
+	<p><span class="bullet">•&nbsp;如果热图中显示多个控制变量，那么热图统计信息是热图中定义的每个单元格中相关项的平均权重。</span></p>
+
+	<p><span class="bullet">•&nbsp;在语法中，您可以更多控制图维。</span></p>
+	
+  <h2>其他功能部件</h2>如果您有足够的内存和耐心，可以在语法中指定多达 10 个维。随着维数增加，对时间和内存的需求将急速提高。</p>
+  <p>在语法中，可以从数据集中获取控制总计。</p>
+  <p>在语法中，您可以禁止显示权重表；如果有许多不同的权重，那么建议执行此操作。</p>
+  <p>在语法中，您可以显式选择热图维度变量并控制分配到的轴。</p>
+  
+  <p>运行命令<br>
+  SPSSINC RAKE /HELP。<br>
+  或者按命令实例（Statistics V23 或更高版本）上的 F1 以显示整个语法描述。</p>
+
+  <h2>要求</h2>此命令需要 Python Essentials 和“高级统计”选项。<hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

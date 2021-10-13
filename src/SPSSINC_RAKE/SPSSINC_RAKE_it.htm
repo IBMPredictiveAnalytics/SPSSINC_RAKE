@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Esegui classificazione dei pesi ai totali controllo</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Esegui classificazione dei pesi ai totali controllo</h1>Questa procedura
+  calcola i pesi dei casi per una corrispondenza ai totali controllo
+  per le categorie di un numero di variabili che oscilla tra una e cinque. Se il dataset è già pesato, la nuova variabile peso
+  incorpora il peso esistente.
+
+  <p><span class="runinhead">Variabile peso da creare.</span>
+  Specificare la variabile peso da creare.</p>
+
+  <p class="bullet">•&nbsp;Il nome della variabile peso non deve essere già in uso.</p>
+
+  <p><span class="runinhead">Variabile totale controllo.</span> Selezionare almeno una variabile di controllo.</p>
+
+  <p class="bullet">•&nbsp;È possibile utilizzare solo variabili
+  di categoria numeriche. È possibile utilizzare Autorecode
+  per creare una versione numerica di una variabile stringa.</p>
+
+  <p class="bullet">•&nbsp;È possibile specificare fino a cinque
+  variabili di controllo utilizzando la finestra di dialogo
+  (ne possono essere specificate altre nella sintassi)
+  ma con il crescere del numero di variabili
+  utilizzato aumenta la difficoltà di mettere in corrispondenza i
+  totali controllo e la probabilità del verificarsi di pesi estremi.</p>
+
+  <p><span class="runinhead">Categorie e totali o frazioni controllo.</span> Per ognuna
+  delle variabili di controllo specificate, immettere un elenco di valori di categoria e
+  di totali o frazioni, separati da uno spazio. Ad esempio,<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  La categoria 1 deve essere pesata a metà del campione, la categoria
+  2 al 30% e la categoria 3 al 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  è l'equivalente espresso come conteggi piuttosto che come
+  frazioni.</p>
+  <p>Il totale controllo può anche essere un'espressione numerica. Se
+  viene utilizzata un'espressione, racchiuderla tra virgolette. Ad esempio, 
+  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>Questo può essere utile quando si hanno delle categorie nidificate e si
+  ha bisogno di comprimere le dimensioni</p>
+  <p>Se i valori vengono specificati utilizzando un dataset, la variabile totale controllo
+  può essere una stringa che contiene l'espressione.</p>
+   <p class="bullet">•&nbsp;Utilizzando la sintassi, è possibile fare in modo che
+   i pesi provengano da un dataset.</p>
+
+  <p class="bullet">•&nbsp;Utilizzare sempre un punto come punto
+  decimale.</p>
+
+  <p>La procedura genererà i pesi in modo che i totali marginali
+  per ogni categoria variabile di controllo corrispondano il più possibile ai totali
+  specificati.</p>
+
+  <p><span class="runinhead">Totale popolazione.</span> Facoltativamente,
+  è possibile specificare un totale popolazione a cui corrisponderà la
+  somma dei casi pesati.</p>
+
+  <p class="bullet">•&nbsp;I casi non possono essere prodotti dal nulla;
+  se si specificano dei valori di controllo che non ricorrono nel dataset,
+il numero pesato di casi sarà inferiore a quello richiesto.</p>
+
+  <h2>Opzioni</h2>
+
+  <p>La finestra di dialogo Opzioni specifica i criteri per il processo
+  di stima Genlog utilizzato da questa procedura e se nascondere o
+mostrare l'output Genlog e il dataset ausiliario generato.</p>
+
+  <p><span class="runinhead">Criteri di stima.</span> La stima
+  viene eseguita in modo iterativo da Genlog. Il metodo Newton-Raphson
+  viene utilizzato per ottenere le stime di parametri di massima verosimiglianza. È
+ possibile specificare nuovi valori per il numero massimo di interazioni,
+il criterio di convergenza e il delta (una costante aggiunta a tutte le celle per le approssimazioni iniziali).</p>
+
+  <p class="bullet">•&nbsp; Se i pesi calcolati non producono dei
+  risultati prossimi alle proporzioni specificate, provare a
+  impostare DELTA=0.</p>
+
+  <p><span class="runinhead">Mostra output Genlog e dataset ausiliario.</span> Selezionare questa casella per visualizzare l'output
+  Genlog e il dataset ausiliario utilizzato nel calcolo dei pesi.</p>
+  
+    <h2>Grafici</h2>
+	<p><span class="runinhead">Visualizza istogramma dei pesi.</span>
+	Selezionare questa casella per visualizzare un istogramma non pesato dei pesi calcolati accumulati su tutti i casi.Ciò può essere utile per controllare l'eventuale presenza di valori di peso estremi.</p>
+	
+	<p><span class="runinhead">Mappa termica.</span> Una mappa termica può essere visualizzata per un massimo di quattro dimensioni. le variabili
+ assegnate alle dimensioni vengono prese nell'ordine in cui sono elencate nella finestra di dialogo principale e assegnate alle dimensioni y e x
+ e quindi al paneling di colonne e righe in base al numero di dimensioni
+ specificate..
+	Il numero di dimensioni è al massimo il numero di variabili totali controllo.
+	Non è disponibile alcun grafico se è presente solo una singola variabile controllo.</p>
+	<p>Le aree scure nella mappa termica indicano dove si trovano i pesi grandi,
+ quindi questo grafico può individuare con precisione i punti in cui i pesi stanno amplificando maggiormente i casi.</p>
+	
+	<p><span class="bullet">•&nbsp;Se ci sono più variabili controllo di quelle visualizzate nella mappa
+termica, le statistiche della mappa termica sono la media dei pesi in ciascuna cella definita nella mappa
+sugli elementi significativi.</span></p>
+
+	<p><span class="bullet">•&nbsp;Nella sintassi, si ha più controllo sulle dimensioni del grafico.</span></p>
+	
+  <h2>Funzioni aggiuntive</h2>Nella sintassi è possibile avere fino a dieci
+  dimensioni, se si ha memoria e pazienza a sufficienza. Entrambi i requisiti
+  di tempo e memoria crescono rapidamente con il numero delle dimensioni. </p>
+  <p>nella sintassi, i totali controllo possono essere presi da un dataset.</p>
+  <p>Nella sintassi, è possibile sopprimere la tabella dei pesi, il che
+  è consigliato se ci sarà un ampio numero di pesi distinti.</p>
+  <p>Nella sintassi, è possibile scegliere in modo esplicito le variabili di
+  dimensione della mappa termica e controllare gli assi a cui sono assegnate.</p>
+  
+  <p>Eseguire il comando<br>
+  SPSSINC RAKE /HELP.<br>
+  oppure premere F1 su un'istanza di comando (Statistics V23 o successive) per visualizzare l'intera descrizione della sintassi.</p>
+
+  <h2>Requisiti</h2>Questo comando richiede le opzioni Python
+  Essentials e Advanced Statistics.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

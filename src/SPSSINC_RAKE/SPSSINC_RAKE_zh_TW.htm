@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>使加權向控制項總計傾斜</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>使加權向控制項總計傾斜</h1>此程序計算觀察值加權，以符合一至五個變數之種類的控制項總計。如果資料集已加權，新加權變數會併入到現有加權中。
+  <p><span class="runinhead">要建立的加權變數。</span>
+  指定要建立的加權變數。</p>
+
+  <p class="bullet">•&nbsp;加權變數名稱不得已使用。</p>
+
+  <p><span class="runinhead">控制項總計變數。</span> 選取至少一個控制項變數。</p>
+
+  <p class="bullet">•&nbsp;僅可以使用數值變數、種類變數。您可以使用「自動重新編碼」來建立數值版的字串變數。</p>
+
+  <p class="bullet">•&nbsp;使用對話框最多可以指定五個控制項變數（使用語法可以指定更多），但使用的變數越多，符合控制項總計的難度越大，且發生極端值加權的可能性越大。</p>
+
+  <p><span class="runinhead">種類和控制項總計或比例。</span> 針對您指定的每個控制項變數，輸入以空白區隔的種類值和總計或比例清單。例如，<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  種類 1 應加權到樣本的一半；種類 2 加權到 30%，種類 3 加權到 20%。<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  相當於表示為計數而不是比例。</p>
+  <p>控制項總計也可以是數值表示式。如果使用表示式，請用引號括住表示式。例如，<p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>當您具有巢狀種類且需要收合維度時，這可能會非常有用。
+</p>
+  <p>如果使用資料集指定值，則控制項總計變數可以是包含表示式的字串。</p>
+   <p class="bullet">•&nbsp;使用語法，您可以具有來自資料集的加權。
+</p>
+
+  <p class="bullet">•&nbsp;一律使用句點作為小數點。</p>
+
+  <p>該程序將產生加權，以便每個控制項變數種類的邊際總計儘可能符合指定的總計。</p>
+
+  <p><span class="runinhead">母群總計。</span> 您可以選擇性地指定加權的觀察值總和將達到的母群總計。</p>
+
+  <p class="bullet">•&nbsp;無法使用空資料產生觀察值：如果您指定資料集中未出現的控制項值，加權的觀察值數量將小於要求的數量。</p>
+
+  <h2>選項</h2>
+
+  <p>「選項」對話框指定此程序使用的 Genlog 估計程序的準則，以及是隱藏還是顯示 Genlog 輸出和產生的輔助設備資料集。</p>
+
+  <p><span class="runinhead">估計準則。</span> 估計由 Genlog 反覆執行。將使用 Newton-Raphson 方法來取得最大概似參數估計值。您可以為反覆運算次數上限、收斂準則以及差異（新增至起始近似值的所有資料格的常數）輸入新值。</p>
+
+  <p class="bullet">•&nbsp; 如果計算的加權不產生接近指定比例的結果，請嘗試設定 DELTA=0。</p>
+
+  <p><span class="runinhead">顯示 Genlog 輸出和輔助設備資料集。</span> 勾選此方框可查看在加權計算中使用的 Genlog 輸出和輔助設備資料集。</p>
+  
+    <h2>圖形</h2>
+	<p><span class="runinhead">顯示加權直方圖。</span>
+	勾選這個方框，可以顯示所有觀察值累計的計算加權的相同粗細度直方圖。
+	這對檢查是否存在極端加權值很有用。</p>
+	
+	<p><span class="runinhead">熱圖。</span> 最多可以顯示四個維度的熱圖。
+	指派給維度的變數會以其在主要對話框中的列出順序進行採用並指派給 y 和 x 維度，然後直欄和列根據指定的維度數展開。維度數最多只能與控制變數總數相同。
+	如果只有一個控制變數，則沒有可用的圖形。</p>
+	<p>熱圖中的暗區指出較大加權的所在位置，因此這個圖形可以精確找出加權對觀察值增長最大的位置。</p>
+	
+	<p><span class="bullet">•&nbsp;如果存在的控制變數數目超過熱圖中所顯示的控制變數，則熱圖統計量是熱圖中所定義之每個單元中，相關項目的平均加權。</span></p>
+
+	<p><span class="bullet">•&nbsp;在語法中，您可以更大程度地控制圖形維度。</span></p>
+	
+  <h2>其他特性</h2>如果有充足的記憶體和耐心，您可以在語法中最多有十個維度。時間和記憶體需求都會隨著維度數迅速增加。</p>
+  <p>在語法中，可以從資料集提取控制項總計。</p>
+  <p>在語法中，您可以抑制加權表格，當存在大量不同加權時，建議這麼做。</p>
+  <p>在語法中，您可以明確地選擇熱圖維度變數並控制將這些變數指派給的軸。</p>
+  
+  <p>執行指令<br>
+  SPSSINC RAKE /HELP.<br>
+  或在指令實例上按 F1（Statistics 第 23 版或更新版本）以顯示整個語法說明。</p>
+
+  <h2>需求</h2>此指令需要 Python Essentials 及 Advanced Statistics 選項。<hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

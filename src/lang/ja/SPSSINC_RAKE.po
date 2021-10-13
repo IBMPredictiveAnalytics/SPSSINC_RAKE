@@ -1,129 +1,83 @@
-#/***********************************************************************
-# * Licensed Materials - Property of IBM 
-# *
-# * IBM SPSS Products: Statistics Common
-# *
-# * (C) Copyright IBM Corp. 1989, 2014
-# *
-# * US Government Users Restricted Rights - Use, duplication or disclosure
-# * restricted by GSA ADP Schedule Contract with IBM Corp. 
-# ************************************************************************/
-
-# NLS_ENCODING=UTF-8
-# IBMUPYTH
-
-
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
+
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-21 17:51+China Standard Time\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-10-11 00:32-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"Generated-By: pygettext.py 1.5\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Globalization Pipeline\n"
 
-
-#: SPSSINC_RAKE.py:112
 msgid "---"
-msgstr ""
-"---"
+msgstr "---"
 
-#: SPSSINC_RAKE.py:133
 msgid "FINALWEIGHT cannot specify an existing variable name"
-msgstr ""
-"FINALWEIGHT は既存の変数名を指定できません"
+msgstr "FINALWEIGHT は既存の変数名を指定できません"
 
-#: SPSSINC_RAKE.py:145
 msgid "A control total variable does not exist: %s"
-msgstr ""
-"制御合計変数が存在しません: %s"
+msgstr "制御合計変数が存在しません: %s"
 
-#: SPSSINC_RAKE.py:147
 msgid "A nonnumeric variable was specified for a control dimension: %s"
-msgstr ""
-"制御ディメンションに対して非数値変数が指定されました: %s"
+msgstr "制御ディメンションに対して非数値変数が指定されました: %s"
 
-#: SPSSINC_RAKE.py:149
-msgid "An invalid set of values and totals was found for a control dimension: %s"
-msgstr ""
-"制御ディメンションに対して値および合計の無効なセットが見つかりました: %s"
+msgid ""
+"An invalid set of values and totals was found for a control dimension: %s"
+msgstr "制御ディメンションに対して値および合計の無効なセットが見つかりました: %s"
 
-#: SPSSINC_RAKE.py:154
 msgid "Information"
-msgstr ""
-"情報"
+msgstr "情報"
 
-#: SPSSINC_RAKE.py:204
-msgid "The number of control variables does not match number of sets of control totals"
-msgstr ""
-"制御変数の数が制御合計のセットの数と一致しません"
+msgid ""
+"The number of control variables does not match number of sets of control "
+msgstr "制御変数の数が制御合計のセットの数と一致しません"
 
-#: SPSSINC_RAKE.py:280
-msgid "Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
-msgstr ""
-"変数: %s、値: %s。制御値が指定されていません。重み付けは SYSMIS になります。"
+msgid ""
+"Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
+msgstr "変数: %s、値: %s。制御値が指定されていません。重み付けは SYSMIS になります。"
 
-#: SPSSINC_RAKE.py:335
-msgid "Failure in GENLOG procedure.  Processing stopped.\nThe error could be either a failure to compute the result \nor not having a license for the Advanced Statistics option"
+msgid ""
+"Failure in GENLOG procedure.  Processing stopped.\nThe error could be either a"
+" failure to compute the result \nor not having a license for the Advanced "
+"Statistics option"
 msgstr ""
-"GENLOG プロシージャが失敗しました。処理が停止しました。\n結果の計算が失敗したか、Advanced Statistics のオプションの\nライセンスがないためにエラーが発生した可能性があります。"
+"GENLOG プロシージャが失敗しました。処理が停止しました。\n結果の計算が失敗したか、Advanced Statistics のオプションの\n"
+"ライセンスがないためにエラーが発生した可能性があります。"
 
-#: SPSSINC_RAKE.py:378
 msgid "Raked Weight"
-msgstr ""
-"傾斜重み付け"
+msgstr "傾斜重み付け"
 
-#: SPSSINC_RAKE.py:439
 msgid "Sample Balance"
-msgstr ""
-"サンプル バランス"
+msgstr "サンプル バランス"
 
-#: SPSSINC_RAKE.py:447
 msgid "Sample Balance Including Final Weight Adjustment"
-msgstr ""
-"最終重み付け調整を含むサンプル バランス"
+msgstr "最終重み付け調整を含むサンプル バランス"
 
-#: SPSSINC_RAKE.py:448
 msgid "Sample Balance Based on Variables: %s"
-msgstr ""
-"変数に基づいたサンプル バランス: %s"
+msgstr "変数に基づいたサンプル バランス: %s"
 
-#: SPSSINC_RAKE.py:450
 msgid "Balance"
-msgstr ""
-"バランス"
+msgstr "バランス"
 
-#: SPSSINC_RAKE.py:453
 msgid "Category Rake Weight"
-msgstr ""
-"カテゴリ傾斜重み付け"
+msgstr "カテゴリ傾斜重み付け"
 
-#: SPSSINC_RAKE.py:460
 msgid "Case Count Weighted by Input Weight"
-msgstr ""
-"入力値により重み付けされたケース度数"
+msgstr "入力値により重み付けされたケース度数"
 
-#: SPSSINC_RAKE.py:461
 msgid "Mean Adjusted Raked Weight"
-msgstr ""
-"平均調整済み傾斜重み付け"
+msgstr "平均調整済み傾斜重み付け"
 
-#: SPSSINC_RAKE.py:463
 msgid "Unweighted Case Count"
-msgstr ""
-"重み付けのないケース度数"
+msgstr "重み付けのないケース度数"
 
-#: SPSSINC_RAKE.py:469
 msgid "Raked Weights"
-msgstr ""
-"傾斜重み付け"
-
-
-
+msgstr "傾斜重み付け"
