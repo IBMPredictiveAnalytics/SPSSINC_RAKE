@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Raking für Gewichtungen und Kontrollsummen durchführen</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Raking für Gewichtungen und Kontrollsummen durchführen</h1>Diese Prozedur berechnet Fallgewichtungen zum Abgleich von Kontrollsummen für Kategorien von bis zu fünf Variablen. Wenn das Dataset bereits gewichtet ist, umfasst die neue Gewichtungsvariable die vorhandene Gewichtung.
+
+  <p><span class="runinhead">Zu erstellende Gewichtungsvariable.</span>
+  Geben Sie die Gewichtungsvariable an, die erstellt werden soll.</p>
+
+  <p class="bullet">•&nbsp;Der Name der Gewichtungsvariablen darf nicht bereits verwendet werden.</p>
+
+  <p><span class="runinhead">Kontrollsummenvariable.</span> Wählen Sie mindestens eine Kontrollvariable aus.</p>
+
+  <p class="bullet">•&nbsp;Es können nur numerische Kategorievariablen verwendet werden. Mit AUTORECODE können Sie eine numerische Version einer Zeichenfolgevariablen erstellen.</p>
+
+  <p class="bullet">•&nbsp;Bis zu fünf Kontrollvariablen können in diesem Dialogfeld angegeben werden (über die Syntax können mehr angegeben werden). Je mehr Variablen verwendet werden, umso schwieriger wird jedoch der Abgleich der Kontrollsummen und umso wahrscheinlicher wird das Auftreten extremer Gewichtungen.</p>
+
+  <p><span class="runinhead">Kategorien und Kontrollsummen oder Bruchteile.</span> Für jede der angegebenen Kontrollvariablen geben Sie eine Liste von Kategorienwerten und Gesamtsummen oder Bruchteilen getrennt durch ein Leerzeichen ein. Beispiel:<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  Kategorie 1 sollte mit der Hälfte der Stichprobe gewichtet werden; Kategorie 2 mit 30% und Kategorie 3 mit 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  Dieser Ausdruck ist die Entsprechung mit Anzahlen anstelle von Bruchteilen.</p>
+  <p>Die Kontrollsumme kann auch ein numerischer Ausdruck sein.  Wird ein Ausdruck verwendet, setzen Sie den Ausdruck in Anführungszeichen.  Beispiel: 
+  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>Dies kann sinnvoll sein, wenn Sie verschachtelte Kategorien haben und Dimensionen ausblenden müssen.</p>
+  <p>Werden die Werte über ein Dataset angegeben, kann die Kontrollsummenvariable eine Zeichenfolge sein, die den Ausdruck enthält.</p>
+   <p class="bullet">•&nbsp;Bei Verwendung von Syntax können die Gewichtungen aus einem Dataset kommen.</p>
+
+  <p class="bullet">•&nbsp;Verwenden Sie als Dezimaltrennzeichen immer einen Punkt.</p>
+
+  <p>Diese Prozedur generiert Gewichtungen, sodass die Randsummen für jede Kontrollvariablenkategorie so genau wie möglich den angegebenen Gesamtsummen entsprechen.</p>
+
+  <p><span class="runinhead">Grundgesamtheitssumme.</span> Optional können Sie eine Grundgesamtheitssumme angeben, auf die sich die gewichteten Fälle summieren.</p>
+
+  <p class="bullet">•&nbsp;Fälle können nur aus vorhandenen Werten erstellt werden: wenn Sie Steuerwerte angeben, die im Dataset nicht auftreten, ist die gewichtete Anzahl von Fällen geringer als angefordert.</p>
+
+  <h2>Optionen</h2>
+
+  <p>Der Dialog <b>Optionen</b> gibt Kriterien für den GENLOG-Schätzungsprozess an, der von dieser Prozedur verwendet wird. Außerdem wird festgelegt, ob die GENLOG-Ausgabe angezeigt oder ausgeblendet werden soll, und das generierte Hilfsdataset wird angegeben.</p>
+
+  <p><span class="runinhead">Schätzkriterien.</span> Die Schätzung wird iterativ von GENLOG durchgeführt. Die Newton-Raphson-Methode wird verwendet, um Maximum-Likelihood-Schätzungen zu erhalten. Sie können neue Werte für die maximale Anzahl von Iterationen, das Konvergenzkriterium und einen Deltawert (eine Konstante, die für anfängliche Approximationen zu allen Zellen hinzugefügt wird) angeben.</p>
+
+  <p class="bullet">•&nbsp;Wenn die berechneten Gewichtungen keine Ergebnisse nahe den angegebenen Anteile ergeben, versuchen Sie, DELTA=0 zu definieren.</p>
+
+  <p><span class="runinhead">GENLOG-Ausgabe und Hilfsdataset anzeigen.</span> Wählen Sie dieses Feld aus, um die GENLOG-Ausgabe und das bei der Berechnung der Gewichtungen verwendete Hilfsdataset anzuzeigen.</p>
+  
+    <h2>Diagramme</h2>
+	<p><span class="runinhead">Histogramme der Gewichtungen anzeigen.</span> 
+	Wählen Sie dieses Feld aus, um ein nicht gewichtetes Histogramm der berechneten Gewichtungen anzuzeigen, die für alle Fälle summiert wurden.  
+	Dies kann beim Prüfen auf extreme Gewichtungswerte hilfreich sein.</p>
+	
+	<p><span class="runinhead">Heat-Map.</span> Eine Heat-Map kann für bis zu vier Dimensionenen angezeigt werden.  Die den Dimensionen zugewiesenen Variablen werden in der Reihenfolge verwendet, in der Sie im Hauptdialogfeld aufgelistet werden. Sie werden den Y- und X-Dimensionen und anschließend entsprechend der Anzahl der angegebenen Dimensionen der Spalten- und Zeileneinteilung zugewiesen.
+	Die Anzahl der Dimensionen entspricht maximal der Gesamtanzahl der Kontrollvariablen.
+	Wenn es nur eine Kontrollvariable gibt, ist kein Plot verfügbar.</p>
+	<p>Die dunklen Bereiche in der Heat-Map geben an, wo sich die großen Gewichtungen befinden. Dieser Plot kann also ermitteln, wo die Gewichtungen die Fälle am meisten verstärken.</p>
+	
+	<p><span class="bullet">•&nbsp;Wenn es mehr Kontrollvariablen gibt, als in der Heat-Map angezeigt werden, sind die Heat-Map-Statistikdaten
+die Gewichtungsdaten für jede Zelle, die in der Map als Durchschnitt des relevanten Bereichs definiert ist.</span></p>
+
+	<p><span class="bullet">•&nbsp;In der Syntax haben Sie mehr Kontrolle über die Plotdimensionen.</span></p>
+	
+  <h2>Weitere Funktionen</h2>Die Syntax kann bis zu zehn Dimensionen enthalten, wenn Sie ausreichend Hauptspeicher und Geduld haben. Zeitaufwand und Speicherbedarf steigen rapide mit der Anzahl der Dimensionen. </p>
+  <p>In der Syntax können die Kontrollsummen aus einem Dataset übernommen werden.</p>
+  <p>In der Syntax können Sie die Tabelle der Gewichtungen unterdrücken, was bei einer großen Anzahl unterschiedlicher Gewichtungen empfohlen wird.</p>
+  <p>In der Syntax können Sie die Heat-Map-Dimensionsvariablen explizit auswählen und steuern, welchen Achsen sie zugewiesen werden.</p>
+  
+  <p>Führen Sie den folgenden Befehl aus:<br>
+  SPSSINC RAKE /HELP.<br>
+  Drücken Sie alternativ die Taste F1 für eine Befehlsinstanz (Statistics Version 23 oder später), um die gesamte Syntaxbeschreibung anzuzeigen.</p>
+
+  <h2>Anforderungen</h2>Für diesen Befehl sind Python Essentials und die Option Advanced Statistics erforderlich.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

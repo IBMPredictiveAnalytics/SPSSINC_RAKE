@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><Extension debug="false" version="1.0" xmlns="http://spss.com/clementine/extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://spss.com/clementine/extensions http://xml.spss.com/clementine/extensions/CLEFSpecificationFile.xsd">
+  <ExtensionDetails copyright="Licensed Materials - Property of IBM.  IBM SPSS Products: Statistics Common (C) Copyright IBM Corp. 1989, 2015.  US Government Users Restricted Rights - Use, duplication or  disclosure restricted by GSA ADP Schedule Contract with IBM Corp." description="" id="SPSSINC_RAKE" label="" provider="SPSS, Inc." providerTag="spss" version="1.0"/>
+  <Resources>
+    <Bundle id="bundle1" path="SPSSINC_RAKE" type="properties"/>
+  </Resources>
+  <CommonObjects>
+    <Actions>
+      <Action id="SPSSINC_RAKE_action" imagePath="IBMdialogicon.png" label="Rake Weights..." labelKey="SPSSINC_RAKE_action.LABEL"/>
+    </Actions>
+  </CommonObjects>
+  <UserInterface>
+    <Controls>
+      <MenuItem action="SPSSINC_RAKE_action" offset="17" previousId="" showIcon="true" spssMenu="Data"/>
+    </Controls>
+  </UserInterface>
+  <Node id="SPSSINC_RAKE" label="Rake Weights to Control Totals" labelKey="SPSSINC_RAKE.LABEL" type="modelBuilder">
+    <Properties>
+      <Property name="SPSSINC_RAKE" syntax="SPSSINC RAKE %%dim1%% %%values1%%&#10;%%dim2%% %%values2%%&#10;%%dim3%% %%values3%%&#10;%%dim4%% %%values4%%&#10;%%dim5%% %%values5%%&#10;%%poptotal%% %%weight%%&#10;/OPTIONS %%optionsdlg%%&#10;/PLOT %%histogram%% %%heatmapdims%%&#10;"/>
+      <Property description="false" name="SPSSINC_RAKE_modal"/>
+      <Property description="" descriptionKey="source_vars_tooltip.LABEL" isList="true" label="Variables:" labelKey="source_vars.LABEL" name="source_vars" selectionPool="source_fields" syntax="%%ThisValue%%" valueType="field"/>
+      <Property description="" descriptionKey="dim1_tooltip.LABEL" isList="true" isRequired="true" label="Control Total Variable 1:" labelKey="dim1.LABEL" name="dim1" selectionPool="source_fields" syntax="DIM1 = %%ThisValue%%" valueType="field"/>
+      <Property defaultValue="" description="" descriptionKey="values1_tooltip.LABEL" isRequired="true" label="Categories and Control Totals or Fractions 1:" labelKey="values1.LABEL" name="values1" syntax="%%ThisValue%%" valueType="string"/>
+      <Property description="" descriptionKey="dim2_tooltip.LABEL" isList="true" label="Control Total Variable 2:" labelKey="dim2.LABEL" name="dim2" selectionPool="source_fields" syntax="DIM2=%%ThisValue%%" valueType="field"/>
+      <Property defaultValue="" description="" descriptionKey="values2_tooltip.LABEL" label="Categories and Control Totals or Fractions 2:" labelKey="values2.LABEL" name="values2" syntax="%%ThisValue%%" valueType="string"/>
+      <Property description="" descriptionKey="dim3_tooltip.LABEL" isList="true" label="Control Total Variable 3:" labelKey="dim3.LABEL" name="dim3" selectionPool="source_fields" syntax="DIM3=%%ThisValue%%" valueType="field"/>
+      <Property defaultValue="" description="" descriptionKey="values3_tooltip.LABEL" label="Categories and Control Totals or Fractions 3:" labelKey="values3.LABEL" name="values3" syntax="%%ThisValue%%" valueType="string"/>
+      <Property description="" descriptionKey="dim4_tooltip.LABEL" isList="true" label="Control Total Variable 4:" labelKey="dim4.LABEL" name="dim4" selectionPool="source_fields" syntax="DIM4=%%ThisValue%%" valueType="field"/>
+      <Property defaultValue="" description="" descriptionKey="values4_tooltip.LABEL" label="Categories and Control Totals or Fractions 4:" labelKey="values4.LABEL" name="values4" syntax="%%ThisValue%%" valueType="string"/>
+      <Property defaultValue="" description="" descriptionKey="poptotal_tooltip.LABEL" label="Population Total:" labelKey="poptotal.LABEL" min="0.000000" name="poptotal" syntax="POPTOTAL=%%ThisValue%%" valueType="double"/>
+      <Property description="" descriptionKey="criteria_tooltip.LABEL" label="Estimation Criteria" labelKey="criteria.LABEL" name="criteria" syntax="%%ThisValue%%"/>
+      <Property defaultValue="20" description="" descriptionKey="iter_tooltip.LABEL" label="Maximum Iterations:" labelKey="iter.LABEL" min="1" name="iter" syntax="ITERATIONS=%%ThisValue%%" valueType="integer"/>
+      <Property defaultValue=".0001" description="" descriptionKey="conv_tooltip.LABEL" label="Convergence:" labelKey="conv.LABEL" min="0.000000" name="conv" syntax="CONVERGENCE=%%ThisValue%%" valueType="double"/>
+      <Property defaultValue=".5" description="If the calculated weights are not close to the desired values, try setting this parameter to 0" descriptionKey="delta_tooltip.LABEL" label="Delta:" labelKey="delta.LABEL" name="delta" syntax="DELTA=%%ThisValue%%" valueType="double"/>
+      <Property defaultValue="false" description="" descriptionKey="show_tooltip.LABEL" label="Show Genlog output and auxiliary dataset" labelKey="show.LABEL" name="show" syntax="SHOW=YES±SHOW=NO" valueType="boolean"/>
+      <Property defaultValue="" description="Enter a name for the new weight variable.  The name must not already be in use." descriptionKey="weight_tooltip.LABEL" isRequired="true" label="Weight Variable to Create:" labelKey="weight.LABEL" name="weight" syntax="FINALWEIGHT=%%ThisValue%%" valueType="string"/>
+      <Property description="" descriptionKey="dim5_tooltip.LABEL" isList="true" label="Control Total Variable 5:" labelKey="dim5.LABEL" name="dim5" selectionPool="source_fields" syntax="DIM5=%%ThisValue%%" valueType="field"/>
+      <Property defaultValue="" description="" descriptionKey="values5_tooltip.LABEL" label="Categories and Control Totals or Fractions 5:" labelKey="values5.LABEL" name="values5" syntax="%%ThisValue%%" valueType="string"/>
+      <Property defaultValue="true" description="" descriptionKey="histogram_tooltip.LABEL" label="Display histogram of weights" labelKey="histogram.LABEL" name="histogram" syntax="HISTOGRAM=YES±HISTORGRAM=NO" valueType="boolean"/>
+      <Property description="" descriptionKey="heatmapgroup_tooltip.LABEL" label="Heatmap" labelKey="heatmapgroup.LABEL" name="heatmapgroup" syntax="%%ThisValue%%"/>
+      <Property defaultValue="false" description="" descriptionKey="item_70_tooltip.LABEL" label="Display heatmap of weights" labelKey="item_70.LABEL" name="item_70" syntax="%%ThisValue%%±" valueType="boolean"/>
+      <Property defaultValue="2" description="" descriptionKey="heatmapdims_tooltip.LABEL" isRequired="true" label="Number of Dimensions" labelKey="heatmapdims.LABEL" max="4" min="2" name="heatmapdims" syntax="AUTOHEATMAP=%%ThisValue%%" valueType="integer"/>
+    </Properties>
+    <SelectionPool id="source_fields" type="fields"/>
+    <UserInterface>
+      <Tabs>
+        <Tab helpLink="SPSSINC_RAKE.htm">
+          <PropertiesPanel>
+            <SourceFieldsBrowser copyFields="false" property="source_vars" selectionPool="source_fields" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="both" gridColumn="0" gridRow="0" gridWidth="1" rowWeight="1.0"/>
+            </SourceFieldsBrowser>
+            <SingleFieldChooserControl mnemonic="1" mnemonicKey="dim1_mnemonic.VALUE" property="dim1" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="1" gridWidth="1" rowWeight="0.0"/>
+            </SingleFieldChooserControl>
+            <TextBoxControl mnemonic="C" mnemonicKey="values1_mnemonic.VALUE" property="values1">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="2" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <SingleFieldChooserControl mnemonic="2" mnemonicKey="dim2_mnemonic.VALUE" property="dim2" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="3" gridWidth="1" rowWeight="0.0"/>
+            </SingleFieldChooserControl>
+            <TextBoxControl mnemonic="A" mnemonicKey="values2_mnemonic.VALUE" property="values2">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="4" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <SingleFieldChooserControl mnemonic="3" mnemonicKey="dim3_mnemonic.VALUE" property="dim3" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="5" gridWidth="1" rowWeight="0.0"/>
+            </SingleFieldChooserControl>
+            <TextBoxControl mnemonic="T" mnemonicKey="values3_mnemonic.VALUE" property="values3">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="6" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <SingleFieldChooserControl mnemonic="4" mnemonicKey="dim4_mnemonic.VALUE" property="dim4" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="7" gridWidth="1" rowWeight="0.0"/>
+            </SingleFieldChooserControl>
+            <TextBoxControl mnemonic="E" mnemonicKey="values4_mnemonic.VALUE" property="values4">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="8" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <TextBoxControl mnemonic="P" mnemonicKey="poptotal_mnemonic.VALUE" property="poptotal">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="11" gridWidth="1" rowWeight="1.0"/>
+            </TextBoxControl>
+            <PropertiesSubPanel buttonLabel="Options..." buttonLabelKey="options.LABEL" dialogTitle="" dialogTitleKey="optionsdlg.TITLE" helpLink="" mnemonic="O" mnemonicKey="options_mnemonic.VALUE">
+              <Layout columnWeight="0.0" fill="none" gridColumn="3" gridRow="0" gridWidth="1" rowWeight="0.0"/>
+              <PropertiesPanel>
+                <PropertiesPanel id="criteria" label="Estimation Criteria" labelKey="criteria.LABEL">
+                  <Layout columnWeight="1.0" fill="both" gridColumn="0" gridRow="0" gridWidth="1" rowWeight="1.0"/>
+                  <TextBoxControl mnemonic="M" mnemonicKey="iter_mnemonic.VALUE" property="iter">
+                    <Layout columnWeight="1.0" fill="horizontal" gridColumn="0" gridRow="0" gridWidth="1" rowWeight="0.0"/>
+                  </TextBoxControl>
+                  <TextBoxControl mnemonic="C" mnemonicKey="conv_mnemonic.VALUE" property="conv">
+                    <Layout columnWeight="1.0" fill="horizontal" gridColumn="0" gridRow="1" gridWidth="1" rowWeight="0.0"/>
+                  </TextBoxControl>
+                  <TextBoxControl mnemonic="D" mnemonicKey="delta_mnemonic.VALUE" property="delta">
+                    <Layout columnWeight="1.0" fill="horizontal" gridColumn="0" gridRow="2" gridWidth="1" rowWeight="1.0"/>
+                  </TextBoxControl>
+                </PropertiesPanel>
+                <CheckBoxControl mnemonic="S" mnemonicKey="show_mnemonic.VALUE" property="show">
+                  <Layout columnWeight="1.0" fill="none" gridColumn="0" gridRow="1" gridWidth="1" rowWeight="0.0"/>
+                </CheckBoxControl>
+              </PropertiesPanel>
+            </PropertiesSubPanel>
+            <TextBoxControl mnemonic="W" mnemonicKey="weight_mnemonic.VALUE" property="weight">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="0" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <StaticText text="This procedure requires the&#10;Python Plug-In and the rake module&#10;as well as the Advanced Statistics option." textKey="item_135.LABEL">
+              <Layout columnWeight="1.0" fill="none" gridColumn="0" gridRow="1" gridWidth="1" rowWeight="0.0"/>
+            </StaticText>
+            <SingleFieldChooserControl mnemonic="5" mnemonicKey="dim5_mnemonic.VALUE" property="dim5" storage="[real integer date time]" types="[set orderedSet]">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="9" gridWidth="1" rowWeight="0.0"/>
+            </SingleFieldChooserControl>
+            <TextBoxControl mnemonic="G" mnemonicKey="values5_mnemonic.VALUE" property="values5">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="2" gridRow="10" gridWidth="1" rowWeight="0.0"/>
+            </TextBoxControl>
+            <PropertiesSubPanel buttonLabel="Plots..." buttonLabelKey="plots.LABEL" dialogTitle="Plots" dialogTitleKey="plotdlg.TITLE" helpLink="" mnemonic="L" mnemonicKey="plots_mnemonic.VALUE">
+              <Layout columnWeight="0.0" fill="none" gridColumn="3" gridRow="1" gridWidth="1" rowWeight="0.0"/>
+              <PropertiesPanel>
+                <CheckBoxControl mnemonic="D" mnemonicKey="histogram_mnemonic.VALUE" property="histogram">
+                  <Layout columnWeight="1.0" fill="none" gridColumn="0" gridRow="0" gridWidth="1" rowWeight="0.0"/>
+                </CheckBoxControl>
+                <PropertiesPanel id="heatmapgroup" label="Heatmap" labelKey="heatmapgroup.LABEL">
+                  <Layout columnWeight="1.0" fill="both" gridColumn="0" gridRow="1" gridWidth="1" rowWeight="1.0"/>
+                  <CheckBoxControl labelAbove="true" property="item_70">
+                    <Layout columnWeight="1.0" fill="none" gridColumn="0" gridRow="0" gridWidth="1" rowWeight="0.0"/>
+                  </CheckBoxControl>
+                  <TextBoxControl mnemonic="N" mnemonicKey="heatmapdims_mnemonic.VALUE" property="heatmapdims">
+                    <Layout columnWeight="1.0" fill="horizontal" gridColumn="0" gridRow="1" gridWidth="1" leftIndent="8" rowWeight="1.0"/>
+                  </TextBoxControl>
+                </PropertiesPanel>
+                <StaticText text="The first 2 to 4 control variables listed determine&#10;the dimensions of the heatmap.&#10;Using syntax specific variables can be chosen.&#10;If there is only one raking dimension, no heatmap&#10;is produced." textKey="item_72.LABEL">
+                  <Layout columnWeight="1.0" fill="none" gridColumn="0" gridRow="2" gridWidth="1" rowWeight="0.0"/>
+                </StaticText>
+              </PropertiesPanel>
+            </PropertiesSubPanel>
+            <StaticText text="This dialog was created using a later version of IBM SPSS Statistics\nand certain features may not function as intended." textKey="v17_warning.LABEL">
+              <Layout columnWeight="1.0" fill="horizontal" gridColumn="0" gridRow="2" gridWidth="1" rowWeight="1.0"/>
+            </StaticText>
+          </PropertiesPanel>
+        </Tab>
+      </Tabs>
+    </UserInterface>
+  </Node>
+</Extension>

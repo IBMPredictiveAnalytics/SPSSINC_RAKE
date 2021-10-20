@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Pondérations de ratissage pour les totaux de contrôle</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Pondérations de ratissage pour les totaux de contrôle</h1>Cette procédure calcule des
+pondérations d'observation afin d'assurer la correspondance des totaux de contrôle pour des
+catégories d'une à cinq variables. Si le jeu de données est déjà pondéré, la nouvelle variable de pondération intègre la pondération existante.
+
+  <p><span class="runinhead">Variable de pondération à créer</span>
+  Indiquez la variable de pondération à créer.</p>
+
+  <p class="bullet">•&nbsp;Le nom de la variable de pondération ne doit pas déjà être utilisé.</p>
+
+  <p><span class="runinhead">Variable de total de contrôle</span> Sélectionnez au moins une
+variable de contrôle.</p>
+
+  <p class="bullet">•&nbsp;Seules les variables numériques de catégorie peuvent être utilisées. Vous
+pouvez utiliser la commande Autorecode pour créer une version numérique d'une variable de chaîne.</p>
+
+  <p class="bullet">•&nbsp;Vous pouvez indiquer cinq variables de contrôle au maximum à l'aide de la boîte de dialogue (des variables supplémentaires peuvent être entrées dans la syntaxe), mais un nombre important de variables rend plus difficile la mise en correspondance des totaux de
+contrôle et augmente la probabilité d'obtenir des pondérations extrêmes.</p>
+
+  <p><span class="runinhead">Catégories et totaux de contrôle ou fractions</span> Pour chacune des
+variables de contrôle que vous indiquez, entrez une liste de valeurs de catégorie et de totaux ou
+de fractions séparés par un espace. Par exemple,<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  La catégorie 1 doit être pondérée à la moitié de l'échantillon, la catégorie 2 à 30 % et la
+catégorie 3 à 20 %.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  serait l'équivalent exprimé sous forme de comptages plutôt que de fractions.</p>
+  <p>^Le total de contrôle peut aussi être une expression numérique.  Si vous utilisez une expression, placez-la entre guillemets.  Par exemple, 
+  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>Cela peut être utile si vous avez des catégories imbriquées et si vous devez réduire les dimensions.</p>
+  <p>Si les valeurs sont définies à l'aide d'un jeu de données, la variable de total de contrôle peut être une chaîne contenant l'expression.</p>
+   <p class="bullet">•&nbsp;La syntaxe permet d'utiliser des pondérations provenant d'un jeu de données.</p>
+
+  <p class="bullet">•&nbsp;Utilisez toujours un point comme séparation décimale.</p>
+
+  <p>Cette procédure générera des pondérations afin que les totaux marginaux de chaque catégorie
+de variable de contrôle correspondent le plus possible aux totaux indiqués.</p>
+
+  <p><span class="runinhead">Total de population</span> Vous pouvez, facultativement, indiquer un
+total de population auquel les observations pondérées seront égales.</p>
+
+  <p class="bullet">•&nbsp;Les observations ne peuvent pas être créées à partir de rien : si vous
+indiquez des valeurs de contrôle qui ne sont pas présentes dans le jeu de données, le nombre
+d'observations pondéré sera inférieur à ce qui est demandé.</p>
+
+  <h2>Options</h2>
+
+  <p>La boîte de dialogue Options indique des critères pour le processus d'estimation Genlog
+utilisé par cette procédure et s'il faut afficher ou masquer la sortie Genlog et le jeu de
+données auxiliaire généré.</p>
+
+  <p><span class="runinhead">Critère d'estimation</span> L'estimation est effectuée de
+manière itérative par Genlog. La méthode de Newton-Raphson est utilisée pour obtenir le maximum d'estimations de paramètre de probabilité. Vous pouvez entrer de nouvelles valeurs pour le nombre maximal
+d'itérations, les critères de convergence et le delta (constante ajoutée à toutes les cellules
+pour les approximations initiales).</p>
+
+  <p class="bullet">•&nbsp; Si les pondérations calculées ne génèrent pas de résultats proches des
+proportions indiquées, paramétrez DELTA=0.</p>
+
+  <p><span class="runinhead">Afficher la sortie Genlog et le jeu de données auxiliaire.</span> Sélectionnez cette case à cocher pour afficher la sortie Genlog et le jeu de
+données auxiliaire utilisé pour le calcul des pondérations.</p>
+  
+    <h2>Tracés</h2>
+	<p><span class="runinhead">Afficher l'histogramme des pondérations.</span> 
+	Cochez cette case pour afficher un histogramme non pondéré des pondérations
+calculées accumulées pour toutes les observations.  
+	Cela peut se révéler utile pour vérifier les pondérations extrêmes.</p>
+	
+	<p><span class="runinhead">Carte de densité.</span> Vous pouvez afficher une
+	carte de densité pour un maximum de quatre dimensions.  Les variables affectées aux
+	dimensions sont utilisées dans l'ordre dans lequel elles figurent dans la boîte de
+	dialogue principale. Elles sont affectées aux dimensions y et x, puis aux colonnes
+ et aux lignes des graphiques en panneaux selon le nombre de dimensions indiqué.
+	Le nombre de dimensions est au plus égal au nomble de variables du total de contrôle.
+	Aucun tracé n'est disponible s'il y a une seule variable de contrôle.</p>
+	<p>La zone sombre de la carte de densité montre les pondérations élevées. Ce tracé peut ainsi
+	mettre en évidence les endroits où les pondérations amplifient le plus les observations.</p>
+	
+	<p><span class="bullet">•&nbsp;S'il y a plus de variable de contrôle qu'il n'en figure sur la carte de densité, les statistiques de la carte sont les moyennes des pondérations de chaque cellule définie dans la carte, calculées sur les valeurs pertinentes.</span></p>
+
+	<p><span class="bullet">•&nbsp;La syntaxe permet de mieux contrôler les dimensions du tracé.</span></p>
+	
+  <h2>Fonctions supplémentaires</h2>La syntaxe peut comporter jusqu'à 10 dimensions si vous
+disposez d'une mémoire suffisante et de suffisamment de temps. Les exigences en mémoire et en
+temps augmentent rapidement avec le nombre de dimensions. </p>
+  <p>Dans la syntaxe, les totaux de contrôle peuvent provenir d'un jeu de données.</p>
+  <p>La syntaxe permet de supprimer la table des pondérations, ce qui est recommandé
+si le nombre des pondérations distinctes doit être élevé.</p>
+  <p>La syntaxe permet de choisir de manière explicite les variables de dimension de
+la carte de densité et de contrôler les axes auxquels elles sont affectées.</p>
+  
+  <p>Exécutez la commande<br>
+  SPSSINC RAKE /HELP.<br>
+  ou appuyez sur F1 dans une instance de commande (Statistics V23 ou version ultérieure)
+  pour afficher la description de la syntaxe dans son ensemble.</p>
+
+  <h2>Conditions requises</h2>Cette commande nécessite Python Essentials et l'option Advanced Statistics.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

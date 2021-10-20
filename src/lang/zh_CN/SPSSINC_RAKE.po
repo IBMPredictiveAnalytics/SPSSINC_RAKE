@@ -1,129 +1,81 @@
-#/***********************************************************************
-# * Licensed Materials - Property of IBM 
-# *
-# * IBM SPSS Products: Statistics Common
-# *
-# * (C) Copyright IBM Corp. 1989, 2014
-# *
-# * US Government Users Restricted Rights - Use, duplication or disclosure
-# * restricted by GSA ADP Schedule Contract with IBM Corp. 
-# ************************************************************************/
-
-# NLS_ENCODING=UTF-8
-# IBMUPYTH
-
-
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
+
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-21 17:51+China Standard Time\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-10-11 00:53-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"Generated-By: pygettext.py 1.5\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Globalization Pipeline\n"
 
-
-#: SPSSINC_RAKE.py:112
 msgid "---"
-msgstr ""
-"---"
+msgstr "---"
 
-#: SPSSINC_RAKE.py:133
 msgid "FINALWEIGHT cannot specify an existing variable name"
-msgstr ""
-"FINALWEIGHT 不得指定现有变量名"
+msgstr "FINALWEIGHT 不得指定现有变量名"
 
-#: SPSSINC_RAKE.py:145
 msgid "A control total variable does not exist: %s"
-msgstr ""
-"某个控制总计变量不存在：%s"
+msgstr "某个控制总计变量不存在：%s"
 
-#: SPSSINC_RAKE.py:147
 msgid "A nonnumeric variable was specified for a control dimension: %s"
-msgstr ""
-"对控制维指定了非数字变量：%s"
+msgstr "对控制维指定了非数字变量：%s"
 
-#: SPSSINC_RAKE.py:149
-msgid "An invalid set of values and totals was found for a control dimension: %s"
-msgstr ""
-"找到对控制维无效的值及总计集合：%s"
+msgid ""
+"An invalid set of values and totals was found for a control dimension: %s"
+msgstr "找到对控制维无效的值及总计集合：%s"
 
-#: SPSSINC_RAKE.py:154
 msgid "Information"
-msgstr ""
-"信息"
+msgstr "信息"
 
-#: SPSSINC_RAKE.py:204
-msgid "The number of control variables does not match number of sets of control totals"
-msgstr ""
-"控制变量数与控制总计集合数不匹配"
+msgid ""
+"The number of control variables does not match number of sets of control "
+msgstr "控制变量数与控制总计集合数不匹配"
 
-#: SPSSINC_RAKE.py:280
-msgid "Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
-msgstr ""
-"变量：%s，值：%s。未提供控制值：权重将为 SYSMIS。"
+msgid ""
+"Variable: %s, value: %s. No control value supplied: weight will be SYSMIS."
+msgstr "变量：%s，值：%s。未提供控制值：权重将为 SYSMIS。"
 
-#: SPSSINC_RAKE.py:335
-msgid "Failure in GENLOG procedure.  Processing stopped.\nThe error could be either a failure to compute the result \nor not having a license for the Advanced Statistics option"
-msgstr ""
-"GENLOG 过程失败。处理已停止。\n此错误可能是计算结果失败，\n或者不具有“高级统计”选项所需的许可证"
+msgid ""
+"Failure in GENLOG procedure.  Processing stopped.\nThe error could be either a"
+" failure to compute the result \nor not having a license for the Advanced "
+"Statistics option"
+msgstr "GENLOG 过程失败。处理已停止。\n此错误可能是计算结果失败，\n或者不具有“高级统计”选项所需的许可证"
 
-#: SPSSINC_RAKE.py:378
 msgid "Raked Weight"
-msgstr ""
-"倾斜权重"
+msgstr "倾斜权重"
 
-#: SPSSINC_RAKE.py:439
 msgid "Sample Balance"
-msgstr ""
-"样本平衡"
+msgstr "样本平衡"
 
-#: SPSSINC_RAKE.py:447
 msgid "Sample Balance Including Final Weight Adjustment"
-msgstr ""
-"包括最终权重调整在内的样本平衡"
+msgstr "包括最终权重调整在内的样本平衡"
 
-#: SPSSINC_RAKE.py:448
 msgid "Sample Balance Based on Variables: %s"
-msgstr ""
-"基于变量的样本平衡：%s"
+msgstr "基于变量的样本平衡：%s"
 
-#: SPSSINC_RAKE.py:450
 msgid "Balance"
-msgstr ""
-"平衡"
+msgstr "平衡"
 
-#: SPSSINC_RAKE.py:453
 msgid "Category Rake Weight"
-msgstr ""
-"类别倾斜权重"
+msgstr "类别倾斜权重"
 
-#: SPSSINC_RAKE.py:460
 msgid "Case Count Weighted by Input Weight"
-msgstr ""
-"按输入权重加权的个案计数"
+msgstr "按输入权重加权的个案计数"
 
-#: SPSSINC_RAKE.py:461
 msgid "Mean Adjusted Raked Weight"
-msgstr ""
-"调整后倾斜权重平均值"
+msgstr "调整后倾斜权重平均值"
 
-#: SPSSINC_RAKE.py:463
 msgid "Unweighted Case Count"
-msgstr ""
-"未加权个案计数"
+msgstr "未加权个案计数"
 
-#: SPSSINC_RAKE.py:469
 msgid "Raked Weights"
-msgstr ""
-"倾斜权重"
-
-
-
+msgstr "倾斜权重"

@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Rake Weights to Control Totals</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Rake Weights to Control Totals</h1>This procedure calculates
+  case weights to match control totals for categories of one to
+  five variables. If the dataset is already weighted, the new
+  weight variable incorporates the existing weight.
+
+  <p><span class="runinhead">Weight Variable to Create.</span>
+  Specify the weight variable to be created.</p>
+
+  <p class="bullet">•&nbsp;The weight variable name must not
+  already be in use.</p>
+
+  <p><span class="runinhead">Control Total Variable.</span> Select
+  at least one control variable.</p>
+
+  <p class="bullet">•&nbsp;Only numeric, category variables can be
+  used. You can use Autorecode to create a numeric version of a
+  string variable.</p>
+
+  <p class="bullet">•&nbsp;Up to five control variables can be
+  specified using the dialog (more can be specified in syntax), but the more variables used, the more difficult it
+  becomes to match the control totals and the greater the
+  likelihood of extreme weights occurring.</p>
+
+  <p><span class="runinhead">Categories and Control Totals or
+  Fractions.</span> For each of the control variables you specify,
+  enter a list of category values and totals or fractions separated
+  by a blank. For example,<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  Category 1 should be weighted to half the sample; category 2 to
+  30%, and category 3 to 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  would be the equivalent expressed as counts rather than as
+  fractions.</p>
+  <p>The control total can also be a numerical expression.  If
+  an expression is used, enclose the expression in quotes.  For
+  example, 
+  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ".87 *.28"
+  </span>
+  <p>This can be useful when you have nested categories and need
+  to collapse dimensions</p>
+  <p>If the values are specified using a dataset, the control total variable
+  can be a string containing the expression.</p>
+   <p class="bullet">•&nbsp;Using syntax, you can have the
+   weights come from a dataset.</p>
+
+  <p class="bullet">•&nbsp;Always use a period as the decimal
+  point.</p>
+
+  <p>The procedure will generate weights so that the marginal
+  totals for each control variable category match the specified
+  totals as closely as possible.</p>
+
+  <p><span class="runinhead">Population Total.</span> Optionally
+  you can specify a population total that the weighted cases will
+  sum to.</p>
+
+  <p class="bullet">•&nbsp;Cases cannot be manufactured out of
+  nothing: if you specify control values that do not occur in the
+  dataset, the weighted number of cases will be less than
+  requested.</p>
+
+  <h2>Options</h2>
+
+  <p>The Options dialog specifies criteria for the Genlog
+  estimation process used by this procedure and whether to hide or
+  show the Genlog output and the auxiliary dataset that is
+  generated.</p>
+
+  <p><span class="runinhead">Estimation Criteria.</span> Estimation
+  is carried out iteratively by Genlog. The Newton-Raphson method
+  is used to obtain maximum likelihood parameter estimates. You can
+  enter new values for the maximum number of iterations, the
+  convergence criterion, and delta (a constant added to all cells
+  for initial approximations).</p>
+
+  <p class="bullet">•&nbsp; If the calculated weights do not yield
+  results close to the specified proportions, try setting
+  DELTA=0.</p>
+
+  <p><span class="runinhead">Show Genlog output and auxiliary
+  dataset.</span> Check this box to see the Genlog output and the
+  auxiliary dataset used in the computation of the weights.</p>
+  
+    <h2>Plots</h2>
+	<p><span class="runinhead">Display histogram of weights.</span> 
+	Check this box to display an unweighted histogram of the computed
+	weights accumulated over all the cases.  
+	This can be helpful in checking for extreme weight values.</p>
+	
+	<p><span class="runinhead">Heatmap.</span> A heatmap can
+	be display for up to four dimensions.  The variables assigned to 
+	the dimensions are taken in the order they are listed in the main
+	dialog box and assigned to the y and x dimensions and then the
+	column and row paneling according to the number of dimensions specified.
+	The number of dimensions is at most the number of control total variables.
+	No plot is available if there is only one control variable.</p>
+	<p>The dark areas in the heatmap indicate where the large weights are, so
+	this plot can pinpoint where the weights are amplifying the cases the most.</p>
+	
+	<p><span class="bullet">•&nbsp;If there are more control variables than are shown in the heatmap, the heatmap
+statistics are the weights in each cell defined in the map averaged over the relevant.</p>
+
+	<p><span class="bullet">•&nbsp;In syntax you have more control over the plot dimensions.</p>
+	
+  <h2>Additional Features</h2>In syntax you can have up to ten
+  dimensions if you have sufficient memory and patience. Both time
+  and memory requirements rise rapidly with the number of
+  dimensions. </p>
+  <p>In syntax, the control totals can be taken from a dataset.</p>
+  <p>In syntax, you can suppress the table of weights, which is
+  recommended if there will be a large number of distinct weights.</p>
+  <p>In syntax, you can explicitly choose the heatmap dimension variables
+  and control the axes they are assigned to.</p>
+  
+  <p>Run the command<br>
+  SPSSINC RAKE /HELP.<br>
+  or press F1 on a command instance (Statistics V23 or later)to display the entire syntax description.</p>
+
+  <h2>Requirements</h2>This command requires the Python
+  Essentials and the Advanced Statistics option.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

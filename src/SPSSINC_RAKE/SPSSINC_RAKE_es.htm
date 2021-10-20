@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Ponderaciones Rake para totales de control</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Ponderaciones Rake para totales de control</h1>Este procedimiento calcula las ponderaciones de caso para que coincidan con los totales de control para las categorías de una a cinco variables. Si el conjunto de datos ya está ponderado, la nueva variable de ponderación incorpora la ponderación existente.
+
+  <p><span class="runinhead">Variable de ponderación para crear.</span>
+  Especifique la variable de ponderación que se va a crear.</p>
+
+  <p class="bullet">•&nbsp;El nombre de la variable de ponderación aún no debe estar en uso.</p>
+
+  <p><span class="runinhead">Variable total de control.</span> Seleccione, como mínimo, una variable de control.</p>
+
+  <p class="bullet">•&nbsp;Sólo se pueden utilizar variables de categoría numéricas. Puede utilizar Autorecode para crear una versión numérica de una variable de cadena.</p>
+
+  <p class="bullet">•&nbsp;Se pueden especificar hasta cinco variables de control utilizando el diálogo   (se pueden especificar más en la sintaxis), pero cuantas más se utilicen, más difícil será   que coincidan con los totales de control y mayor será la probabilidad de que se produzcan   ponderaciones extremas.</p>
+
+  <p><span class="runinhead">Categorías y totales de control o fracciones.</span> Para cada una de las variables de control que especifique, entre una lista de valores de categoría y totales o fracciones separados por un espacio en blanco. Por ejemplo,<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  La categoría 1 se debe ponderar en la mitad de la muestra; la categoría 2 en   un 30%, y la categoría 3 en 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  sería el equivalente expresado como recuentos, en lugar de como fracciones.</p>
+  <p>El total de control también puede ser una expresión numérica.  Si se utiliza   una expresión, especifique la expresión entre comillas.  Por ejemplo, 
+  <p><span class="code">   1 "1594 / (1594 + 603)" 2 ".87 *.28"   </span>
+  <p>Esto puede ser útil si tiene categorías anidadas y necesita contraer   dimensiones</p>
+  <p>Si los valores se han especificado utilizando un conjunto de datos, la variable   de total de control puede ser una cadena que contiene la expresión.</p>
+   <p class="bullet">•&nbsp;Mediante el uso de la sintaxis, puede tener ponderaciones    procedentes de un conjunto de datos.</p>
+
+  <p class="bullet">•&nbsp;Utilice siempre un punto como separador decimal.</p>
+
+  <p>El procedimiento generará ponderaciones de forma que los totales marginales para cada categoría de variable de control coincida con los totales especificados lo más cerca posible.</p>
+
+  <p><span class="runinhead">Total de población.</span> De forma opcional, puede   especificar un total de población que será la suma de los casos ponderados.</p>
+
+  <p class="bullet">•&nbsp;Los casos no se puede fabricar de la nada: si especifica valores de control que no se producen en el conjunto de datos, el número ponderado de casos será menor que el solicitado.</p>
+
+  <h2>Opciones</h2>
+
+  <p>El diálogo Opciones especifica los criterios para el proceso de estimación de Genlog utilizado por este procedimiento y si se va a ocultar o mostrar el resultado del Genlog y el conjunto de datos auxiliar que se va a generar.</p>
+
+  <p><span class="runinhead">Criterios de estimación.</span> Genlog realiza la estimación de forma iterativa. El método Newton-Raphson se utiliza para obtener las estimaciones de parámetro de máxima verosimilitud. Puede entrar nuevos valores para el número máximo de iteraciones, el criterio de convergencia y delta (una constante añadida a todas las casillas para aproximaciones iniciales).</p>
+
+  <p class="bullet">•&nbsp; Si las ponderaciones calculadas no producen resultados cercanos a las proporciones especificadas, intente establecer DELTA=0.</p>
+
+  <p><span class="runinhead">Mostrar el resultado de Genlog y el conjunto de datos auxiliar.</span> Marque este recuadro para ver el resultado de Genlog y el conjunto de datos auxiliar utilizados en el cálculo de las ponderaciones.</p>
+  
+    <h2>Gráficos</h2>
+	<p><span class="runinhead">Mostrar histograma de ponderaciones.</span> 
+	Active este recuadro para mostrar un histograma no ponderado de las ponderaciones 	calculadas acumuladas en todos los casos.  
+	Esto puede resultar de utilidad para comprobar los valores de ponderación extremos.</p>
+	
+	<p><span class="runinhead">Mapa de calor.</span> Se puede mostrar un mapa de calor 	para cuatro dimensiones como máximo.  Las variables asignadas a las 	dimensiones se toman en el orden en que aparecen enumeradas en el 	recuadro de diálogo principal y se asignan a las dimensiones "y" y "x" y, a continuación, a 	los paneles de columna y fila según el número de dimensiones especificado.
+	El número de dimensiones es como máximo el número total de variables de control.
+	No hay ningún gráfico disponible si hay solo una variable de control.</p>
+	<p>Las áreas oscuras en el mapa de calor indican dónde se encuentran las ponderaciones grandes, de modo 	que este gráfico puede determinar dónde las ponderaciones amplifican al máximo los casos.</p>
+	
+	<p><span class="bullet">•&nbsp;Si hay más variables de control que las que se muestran en el mapa de calor, las estadísticas son las ponderaciones en cada casilla definida en el mapa promediadas sobre las relevantes.</span></p>
+
+	<p><span class="bullet">•&nbsp;En la sintaxis tiene más control sobre las dimensiones del gráfico.</span></p>
+	
+  <h2>Características adicionales</h2>En la sintaxis puede tener hasta diez dimensiones, si tiene suficiente memoria y paciencia. Los requisitos de tiempo y, también, de memoria aumentan rápidamente con el número de dimensiones. </p>
+  <p>En la sintaxis, los totales de control se pueden tomar de un conjunto de datos.</p>
+  <p>En la sintaxis, puede suprimir la tabla de ponderaciones, que se recomienda   si va a haber un gran número de ponderaciones distintas.</p>
+  <p>En sintaxis, puede elegir explícitamente las variables de dimensión del mapa de calor   y controlar los ejes a los que están asignadas.</p>
+  
+  <p>Ejecute el comando<br>
+  SPSSINC RAKE /HELP.<br>
+  o pulse F1 en una instancia de mandato (Statistics V23 o posterior) para mostrar la descripción de sintaxis completa.</p>
+
+  <h2>Requisitos</h2>Este comando requiere Python   Essentials y la opción Estadísticas avanzadas.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

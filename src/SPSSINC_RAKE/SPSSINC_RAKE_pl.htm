@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Raking wag dla sum kontrolnych</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Raking wag dla sum kontrolnych</h1>Ta procedura oblicza wagi obserwacji w celu dopasowania sum kontrolnych dla kategorii od jednej do pięciu zmiennych. Jeśli zbiór danych jest już ważony, wówczas nowa zmienna ważąca obejmuje wagę istniejącą.
+
+  <p><span class="runinhead">Zmienna ważąca do utworzenia.</span>
+  Określ zmienną ważącą do utworzenia.</p>
+
+  <p class="bullet">•&nbsp;Nazwa zmiennej ważącej nie powinna być jeszcze używana.</p>
+
+  <p><span class="runinhead">Zmienna sumy kontrolnej.</span> Wybierz co najmniej jedną zmienną sterującą.</p>
+
+  <p class="bullet">•&nbsp;Można używać tylko zmiennych liczbowych, jakościowych. Można użyć funkcji automatycznego ponownego kodowania w celu utworzenia wersji liczbowej zmiennej łańcuchowej.</p>
+
+  <p class="bullet">•&nbsp;Można określić maksymalnie pięć zmiennych sterujących (w oknie dialogowym; więcej za pomocą komendy), ale im większa jest liczba zmiennych, tym trudniejsze jest dopasowanie sum kontrolnych i większe jest prawdopodobieństwo występowania wag skrajnych.</p>
+
+  <p><span class="runinhead">Kategorie i sumy kontrolne lub częstość względna.</span> Dla każdej określonej zmiennej sterującej wprowadź listę wartości kategorii oraz zmiennych sterujących Total lub częstości względnych rozdzielanych spacjami. Na przykład,<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  Kategoria 1 powinna być ważona dla połowy próbki; kategoria 2 do 30%, a kategoria 3 do 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  to równoważnik wyrażony w liczebnościach, a nie w częstościach względnych.</p>
+  <p>Suma kontrolna może być także wyrażeniem liczbowym.  Jeśli używane jest wyrażenie, należy je ująć w cudzysłów.  Na przykład,
+  <p><span class="code">
+  1 "1594 / (1594 + 603)" 2 ",87 *,28"
+  </span>
+  <p>Może to być przydatne w wypadku, gdy mamy kategorie zagnieżdżone i musimy zwinąć wymiary.</p>
+  <p>Jeśli wartości są określone za pośrednictwem zbioru danych, zmienna sumy kontrolnej musi być łańcuchem zawierającym wyrażenie.</p>
+   <p class="bullet">•&nbsp;Korzystając z komendy, można odczytywać wagi ze zbioru danych.</p>
+
+  <p class="bullet">•&nbsp;Separatorem dziesiętnym zawsze musi być kropka.</p>
+
+  <p>Ta procedura wygeneruje wagi w taki sposób, że dopasowanie sum brzegowych dla każdej kategorii zmiennej sterującej będzie bardzo bliskie.</p>
+
+  <p><span class="runinhead">Suma populacji.</span> Opcjonalnie można określić sumę populacji, do której sumowane będą obserwacje ważone.</p>
+
+  <p class="bullet">•&nbsp;Obserwacji nie można wygenerować z niczego: jeśli zostaną określone wartości kontrolne, które nie występują w zbiorze danych, wówczas ważona liczba obserwacji będzie niższa niż żądana.</p>
+
+  <h2>Opcje</h2>
+
+  <p>Okno dialogowe Opcje zawiera kryteria dla procesu szacowania Genlog stosowanego przez tę procedurę oraz określa, czy wyniki Genlog oraz wygenerowany pomocniczy zbiór danych będą widoczne, czy ukryte.</p>
+
+  <p><span class="runinhead">Kryteria estymacji.</span> Estymacja jest przeprowadzana interaktywnie przez Genlog. W celu uzyskania estymacji metodą największej wiarygodności stosowana jest metoda Newtona-Raphsona. Nowe wartości można wprowadzać dla maksymalnej liczby iteracji, dla kryterium zbieżności oraz dla delty (stała dodawana do wszystkich komórek na potrzeby początkowych przybliżeń).</p>
+
+  <p class="bullet">•&nbsp; Jeśli obliczane wagi nie zwracają wyników bliskich określonym proporcjom, wówczas należy zastosować ustawienie DELTA=0.</p>
+
+  <p><span class="runinhead">Pokaż wynik komendy Genlog i pomocniczy zbiór danych.</span> Zaznaczenie tego pola wyboru spowoduje wyświetlanie wyniku komendy Genlog i pomocniczego zbioru danych, który był używany podczas obliczania wag.</p>
+  
+    <h2>Wykresy</h2>
+	<p><span class="runinhead">Wyświetl histogram wag.</span> 
+	Zaznacz to pole wyboru, aby wyświetlić nieważony histogram obliczonych wag skumulowanych ze wszystkich obserwacji.  
+	Może to być przydatne, gdy użytkownik chce wykryć ewentualne wagi o skrajnych wartościach.</p>
+	
+	<p><span class="runinhead">Mapa natężeń.</span> Możliwe jest wyświetlenie mapy natężeń obejmującej maksymalnie cztery wymiary.  Zmienne przypisane do wymiarów są przypisywane do wymiarów x i y, a potem do paneli wierszy i kolumn (zależnie od liczby określonych wymiarów) w kolejności, w jakiej są wymienione w głównym oknie dialogowym.
+	Liczba wymiarów nigdy nie przekracza łącznej liczby zmiennych sterujących.
+	Jeśli istnieje tylko jedna zmienna sterująca, to wykres nie jest dostępny.</p>
+	<p>Ciemne obszary na mapie natężeń wskazują miejsca występowania dużych wag, zatem wykres ten umożliwia określenie, gdzie wagi najbardziej wzmacniają obserwacje.</p>
+	
+	<p><span class="bullet">•&nbsp;Jeśli istnieje więcej zmiennych sterujących niż uwzględniono na mapie natężeń, to statystyki mapy natężeń są uśrednionymi wagami
+w każdej z komórek uwzględnionych na mapie.</span></p>
+
+	<p><span class="bullet">•&nbsp;Wymiarami uwzględnionymi na wykresie można sterować za pośrednictwem języka komend.</span></p>
+	
+  <h2>Funkcje dodatkowe</h2>W komendach można zdefiniować maksymalnie dziesięć wymiarów, pod warunkiem że pozwala na to odpowiednia ilość pamięci i wystarczający zapas cierpliwości. Zwiększenie liczby wymiarów powoduje znaczny wzrost wymagań dotyczących ilości pamięci i czasu. </p>
+  <p>W komendach sumy kontrolne mogą być pobierane ze zbioru danych.</p>
+  <p>W komendach można pominąć tabelę wag, co jest zalecane w przypadku dużej liczby odrębnych wag.</p>
+  <p>W komendach można jawnie wybrać zmienne wymiarów mapy natężeń i określić, do których osi będą one przypisane.</p>
+  
+  <p>Uruchom komendę<br>
+  SPSSINC RAKE /HELP.<br>
+  lub naciśnij klawisz F1, gdy kursor znajduje się na wystąpieniu komendy (w wersji 23 i nowszych), aby wyświetlić pełny opis składni komendy.</p>
+
+  <h2>Wymagania</h2>Ta komenda wymaga pakietu Python
+  Essentials i opcji Advanced Statistics.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>

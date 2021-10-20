@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8">
+
+  <title>Limpar Pesos para Totais de Controle</title>
+  <style type="text/css">
+
+  <!-- 
+
+  H1 {font-weight:bold; color:#006699; font-size:125%; }
+  H2 {font-weight:bold; color:#006699; font-size:110%; }
+  TABLE {font-size:100%;}
+
+  /* paragraph tags */
+  .step {text-indent: -1.3em; margin-left:1.3em; margin-top: 0px;}
+  .menuselection {margin-left:10px}
+  .bullet {list-style-type: disc;margin-top:12px; margin-left:36px; text-indent:-1em; }
+  .codeblock {background-color: #ffffe6; display:block; margin-left:5px; padding:5px;}
+
+  /* inline tags */
+  .screen {font-weight:bold; color:#408080}                       /*** used refer to on-screen text ***/
+  .name {font-style: italic}                                                       /*** used to tag names, such as variable names, file names, and so forth ***/
+  .runinhead {font-weight: bold} 
+  .superscript {vertical-align:super; font-size:80%}
+  .subscript {vertical-align:sub; font-size:80%}
+
+
+  --> 
+  </style>
+</head>
+
+<body>
+  <h1>Limpar Pesos para Totais de Controle</h1>Este procedimento calcula ponderações de casos para corresponder aos totais de controle para categorias de uma a cinco variáveis. Se o conjunto de dados já estiver pesado, a nova variável de ponderação incorpora o peso existente.
+
+  <p><span class="runinhead">Variável de Ponderação para Criar.</span>
+  Especifique a variável de ponderação a ser criada.</p>
+
+  <p class="bullet">•&nbsp;O nome da variável de ponderação não deve estar em uso.</p>
+
+  <p><span class="runinhead">Variável de Total de Controle.</span> Selecione pelo menos uma variável de controle.</p>
+
+  <p class="bullet">•&nbsp;Apenas variáveis numéricas e de categoria podem ser usadas. Você pode usar a Recodificação automática para criar uma versão numérica de uma variável de sequência.</p>
+
+  <p class="bullet">•&nbsp;Até cinco variáveis de controle podem ser especificadas usando o   diálogo (podem ser especificadas mais na sintaxe), mas quanto mais variáveis forem usadas, mais difícil será   corresponder os totais de controle e maior a probabilidade de ocorrerem   ponderações extremas.</p>
+
+  <p><span class="runinhead">Categorias e Totais ou Frações de Controle.</span> Para cada variável de controle especificada, insira uma lista de valores e totais ou frações de categoria separados por um espaço em branco. Por exemplo:<br>
+  <span class="code">1 .5 2 .3 3 .2</span><br>
+  A Categoria 1 deve ser ponderada para metade da amostra; a categoria 2 para   30% e a categoria 3 para 20%.<br>
+  <span class="code">1 500 2 300 3 200</span><br>
+  seria o equivalente expresso como contagens em vez de como   frações.</p>
+  <p>O total de controle também pode ser uma expressão numérica.  Se uma expressão for usada, coloque a expressão entre aspas.  Por exemplo: 
+  <p><span class="code">   1 "1594 / (1594 + 603)" 2 ".87 *.28"   </span>
+  <p>Isso pode ser útil quando você tiver categorias aninhadas e precisar   reduzir dimensões</p>
+  <p>Se os valores forem especificados usando um conjunto de dados, a variável de total de controle pode ser uma sequência de caracteres contendo a expressão.</p>
+   <p class="bullet">•&nbsp;Usando a sintaxe, é possível que as ponderações    venham de um conjunto de dados.</p>
+
+  <p class="bullet">•&nbsp;Sempre use um ponte como separador decimal.</p>
+
+  <p>O procedimento irá gerar pesos para que os totais marginais para cada categoria de variável de controle corresponda aos totais especificados o mais perto possível.</p>
+
+  <p><span class="runinhead">Total de Preenchimento.</span> Opcionalmente, você pode especificar um total de preenchimento ao qual os casos pesados serão somados.</p>
+
+  <p class="bullet">•&nbsp;Os casos não podem ser fabricados do nada:  se forem especificados valores de controle que não ocorrem no conjunto de dados, o número ponderado será menor que o  solicitado.</p>
+
+  <h2>Opções</h2>
+
+  <p>O diálogo Opções especifica critérios para o   processo de estimação Genlog utilizados por este procedimento e se deve ocultar ou   mostrar a saída de Genlog e o conjunto de dados auxiliar que é   gerado.</p>
+
+  <p><span class="runinhead">Critérios de Estimação.</span> A estimação é executada iterativamente por Genlog. O método Newton-Raphson é utilizado para obter estimativas de parâmetros de máxima verossimilhança. Você pode inserir novos valores para o número máximo de iterações, o critério de convergência e delta (uma constante incluída em todas as células para aproximações iniciais).</p>
+
+  <p class="bullet">•&nbsp; Se os pesos calculados não gerarem   resultados próximos das proporções especificadas, tente configurar   DELTA=0.</p>
+
+  <p><span class="runinhead">Mostrar saída de Genlog e conjunto de dados auxiliar.</span> Marque esta caixa para ver a saída de Genlog e o conjunto de dados auxiliar utilizados no cálculo dos pesos.</p>
+  
+    <h2>Gráficos</h2>
+	<p><span class="runinhead">Exibir histograma dos pesos.</span> 
+	Marque esta caixa para exibir um histograma não ponderado dos pesos calculados acumulados em todos os casos.  
+	Isso pode ser útil na verificação de valores de pesos extremos.</p>
+	
+	<p><span class="runinhead">Heat map.</span> Um heat map pode ser exibido para até quatro dimensões.  As variáveis designadas para as dimensões são obtidas para que sejam listadas na caixa de diálogo principal e designadas para as dimensões y e x e depois a coluna e a linha são inseridas em painéis de acordo com o número de dimensões especificadas.
+	O número de dimensões é, no máximo, o número total de variáveis de controle.
+	Nenhum gráfico estará disponível se houver apenas uma variável de controle.</p>
+	<p>As áreas escuras no heat map indicam onde estão os pesos grandes, portanto, esse gráfico pode identificar onde os pesos estão aumentando mais os casos.</p>
+	
+	<p><span class="bullet">•&nbsp;Se houver mais variáveis de controle do que as mostradas no mapa de calor, as estatísticas do mapa de calor serão os pesos em cada célula definida no mapa na média por relevante.</span></p>
+
+	<p><span class="bullet">•&nbsp;Na sintaxe, você tem mais controle sobre as dimensões do gráfico.</span></p>
+	
+  <h2>Recursos adicionais</h2>Na sintaxe, você pode ter até dez dimensões se você tiver memória e paciência suficientes. Requisitos de tempo   e de memória aumentam rapidamente com o número de   dimensões. </p>
+  <p>Na sintaxe, os totais de controle podem ser obtidos de um conjunto de dados.</p>
+  <p>Na sintaxe, é possível suprimir a tabela de ponderações, que é recomendada   se houver um grande número de ponderações distintas.</p>
+  <p>Na sintaxe, é possível escolher explicitamente as variáveis de dimensão do heat map e controlar os eixos aos quais elas estão designadas.</p>
+  
+  <p>Execute o comando<br>
+  SPSSINC RAKE /HELP.<br>
+  ou pressione F1 em uma instância de comando (estatísticas V23 ou posterior) para exibir a descrição completa da sintaxe.</p>
+
+  <h2>Requisitos</h2>Esse comando requer o Python   Essentials e a opção Advanced Statistics.
+  <hr>
+
+  <p style="font-size:80%;">© Copyright IBM Corp. 1989, 2015</p>
+</body>
+</html>
