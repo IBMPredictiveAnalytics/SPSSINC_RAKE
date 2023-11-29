@@ -7,7 +7,7 @@
 #restricted by GSA ADP Schedule Contract with IBM Corp.
 
 __author__ = "SPSS, JKP"
-__version__ = "2.7.0"
+__version__ = "2.7.1"
 
 # 05-aug-2010 handle unlicensed module error
 # 26-aug-2011 force delta = 0 for 1-d problem.  Improve genlog failure error message.
@@ -19,6 +19,7 @@ __version__ = "2.7.0"
 # 10-apr-2015 add option to get control totals from datasets
 # 25-jun-2015 allow expressions for control totals
 # 22-nov-2015 add optional heatmap and histogram
+# 13-nov-2023 fix missing value handling in weight summary table
 
 import spss, spssaux, spssdata
 from extension import Template, Syntax, checkrequiredparams, processcmd
@@ -210,19 +211,15 @@ def rakeextension(finalweight, dim1=None, dim2=None, dim3=None, dim4=None, dim5=
     """dim1 through dim10 are lists with control specifications for up to ten variables.  Each must have the form
     varname value, tot, value, tot, ...
     where value is a number and tot is the fraction or absolute total for the value."""
-    #try:  #debug
+    # debugging
+            # makes debug apply only to the current thread
+    #try:
         #import wingdbstub
-        #if wingdbstub.debugger != None:
-            #import time
-            #wingdbstub.debugger.StopDebug()
-            #time.sleep(2)
-            #wingdbstub.debugger.StartDebug()
-        #import thread
-        #wingdbstub.debugger.SetDebugThreads({thread.get_ident(): 1}, default_policy=0)
-        ## for V19 use
-        ##    ###SpssClient._heartBeat(False)
+        #import threading
+        #wingdbstub.Ensure()
+        #wingdbstub.debugger.SetDebugThreads({threading.get_ident(): 1})
     #except:
-        #pass    
+        #pass  
 
     encoding = locale.getlocale()[1]  # for code page conversions
     ###cvs = [item[0] for item in (dim1, dim2, dim3, dim4, dim5, dim6, dim7, dim8, dim9, dim10) if item]
@@ -596,16 +593,23 @@ e    variables is a list of the variables for which control totals or proportion
         collabels = [_("""Category Rake Weight""")]
         if wtvar:
             for k in actuals:
-                cumwt, cumkt = actualsNewwt[k]
-                act = actuals[k]
-                act.append(cumwt / cumkt)
-                actuals[k] = act
+                try:
+                    cumwt, cumkt = actualsNewwt[k]
+                    act = actuals[k]
+                    act.append(cumwt / cumkt)
+                    actuals[k] = act
+                except:
+                    actuals[k] = [None, None, None]
             collabels.append(_("Case Count Weighted by Input Weight"))
             collabels.append(_("Mean Adjusted Raked Weight"))
         else:
             collabels.append(_("Unweighted Case Count"))
         #items = sorted(expkts.items())
-        items = sorted(actuals.items())
+        # None values might make it unsortable
+        try:
+            items = sorted(actuals.items())
+        except:
+            items = actuals.items()
         rowlabels = [", ".join([str(v) for v in item[0]]) for item in items]
         cells = [item[-1] for item in items]
     
