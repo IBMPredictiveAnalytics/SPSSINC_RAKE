@@ -1,4 +1,5 @@
 Name: SPSSINC_RAKE
+Display-Name: Rake Weights
 Dialog-Specs: SPSSINC_RAKE.spd
 Command-Specs: SPSSINC_RAKE.xml
 Code-Files: SPSSINC_RAKE.py
